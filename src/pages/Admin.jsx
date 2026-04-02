@@ -1,0 +1,492 @@
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const Admin = () => {
+    const [activeTab, setActiveTab] = useState('dashboard')
+    const [orderSearch, setOrderSearch] = useState('')
+    const [orderFilter, setOrderFilter] = useState('All')
+
+    // Mock Data for Admin
+    const [products] = useState([
+        { id: 1, name: "The Solaris Pendant", category: "Necklaces", price: 4850, stock: 12, material: "18k Gold", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWTyCO7hauxZpDW7GduM3p9lIQTJEtruSNpt1GdnyvDza8E0AwI7aL2OLIPpPDF300vmE6LBLNxGRbT1mVWogRPsNVjqwlDJ5qFy5phLlWmsNFG230imuNgQTjlXV6c0CoH0N2bU66v0ygp17QYr98ye8oxn-NhUIzr5yLiwBz4mzki1i9GrCuydqIuBCP1RmrbC-QhgEDMwsmnBn-kHw4S2iMddz7jX94VM4N_zFAmtoOOmD8xvBMz--kNCcYmhcfx2QajUdurjj_" },
+        { id: 2, name: "Emerald Cascade", category: "Necklaces", price: 3200, stock: 8, material: "White Gold", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC0AUXF-HX4HK5W5VZioXOD1qvrt3XNpXG_32W2ZP8NcEufQUvz36o1Q3zHaJd_MLzyllqb4TBxYc3f56q9Zy2holbowDNard_lk01Yl10fU0TBNb9tEGUd8b5wXtur-MkWCPpsldTMk5f6xXlh7ZerK-HMap3YbBOmsyuQ5YjCJHg8429UYrPiZUBIJcdPeT9udo7HGVkIZjr_XxpJCwzjqjY-G1d_clsZoI1CsRYUr9loFcjd1dxs1-w25vcGoY9bxwiMEdI-LMkC" },
+        { id: 6, name: "Ethereal Solitaire Ring", category: "Rings", price: 2450, stock: 24, material: "Yellow Gold", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhnNEapNqvup54lBJYOPHSmTcMMPCdrMkBS6VOENzS9BpTSkEA1s-o6WiTqsCiz77M2RRsdY9K47-zLhStw6X5OnxudVYE8Lauy9hCUi5jLO8P5NWecylSkOXLzanuFVsszK19wWIdi0XitNKVwTLzlthnTl-G56XUYooQGU774Dy-SmHV_9qw8ZZ3Nku619pqZJGJ1HiMyLL7ZTVrMpYPlbpykpjq9yVpIDqYxtpnBpxCQnhK74_B7ws5VhkLbhy8du1ufoWjTUPp" }
+    ])
+
+    const [orders] = useState([
+        { id: "#ORD-88291", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Ethereal Band", total: "$1,250", status: "Delivered", date: "Oct 14, 2023" },
+        { id: "#ORD-88104", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Celestial Drop Earrings", total: "$890", status: "Shipped", date: "Nov 02, 2023" },
+        { id: "#ORD-88542", customer: "Mark Sterling", email: "mark.s@finance.com", items: "L'Aube Pendant", total: "$4,200", status: "Pending", date: "Dec 12, 2023" },
+        { id: "#ORD-88901", customer: "Elena Rossi", email: "elena@atelier.it", items: "Solitude Ring", total: "$2,450", status: "Processing", date: "Jan 05, 2024" }
+    ])
+
+    const [rawMaterials] = useState([
+        { id: 1, name: "24k Gold Grain", type: "Metal", amount: "450g", status: "Stable", threshold: "100g" },
+        { id: 2, name: "VVS Diamonds (1ct)", type: "Gem", amount: "14 units", status: "Low Stock", threshold: "20 units" },
+        { id: 3, name: "925 Sterling Silver", type: "Metal", amount: "2.5kg", status: "Stable", threshold: "500g" },
+        { id: 4, name: "Royal Blue Sapphires", type: "Gem", amount: "3 units", status: "Critical", threshold: "10 units" }
+    ])
+
+    const [customers] = useState([
+        { id: 1, name: "Julianne Vora", email: "j.vora@luxury.com", orders: 12, spend: "$45,200", preference: "High Jewelry", status: "VIP" },
+        { id: 2, name: "Mark Sterling", email: "mark.s@finance.com", orders: 4, spend: "$12,800", preference: "Timepieces", status: "Regular" },
+        { id: 3, name: "Elena Rossi", email: "elena@atelier.it", orders: 1, spend: "$8,500", preference: "Bespoke", status: "New" }
+    ])
+
+    const [bespokeRequests] = useState([
+        { id: "#BSQ-001", client: "Elena Rossi", concept: "Heirloom Reset", budget: "$15,000+", deadline: "June 2024", status: "Consultation" },
+        { id: "#BSQ-002", client: "Julianne Vora", concept: "Celestial Tiara", budget: "Undisclosed", deadline: "Sept 2024", status: "Design Phase" }
+    ])
+
+    const stats = [
+        { label: "Total Revenue", value: "$428,290", icon: "payments", trend: "+12.5%" },
+        { label: "Total Orders", value: "842", icon: "order_approve", trend: "+4.2%" },
+        { label: "Active Bespoke", value: "8 Projects", icon: "diamond", trend: "High Value" },
+        { label: "Material Alerts", value: "2 Critical", icon: "warning", trend: "Action Required" }
+    ]
+
+    const handleAction = (label) => {
+        alert(`${label} simulation initiated.`);
+    }
+
+    const renderDashboard = () => (
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-20">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+                {stats.map((stat) => (
+                    <div key={stat.label} className="bg-surface-container-low p-12 shadow-sm border border-outline-variant/10 group hover:border-primary/40 transition-all duration-700">
+                        <div className="flex justify-between items-start mb-8">
+                            <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">{stat.icon}</span>
+                            <span className="font-label text-[10px] text-primary font-black">{stat.trend}</span>
+                        </div>
+                        <p className="font-label text-[11px] uppercase tracking-[0.25em] text-secondary mb-4 font-black opacity-60">{stat.label}</p>
+                        <h3 className="font-headline text-4xl italic font-light tracking-tight">{stat.value}</h3>
+                    </div>
+                ))}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <div className="lg:col-span-8 bg-surface-container-low p-16 border border-outline-variant/10 shadow-sm">
+                    <h2 className="font-headline text-3xl italic mb-12 border-b border-black/5 pb-6">Revenue Performance</h2>
+                    <div className="h-80 flex items-end gap-4 px-6">
+                        {[40, 70, 45, 90, 65, 80, 100, 55, 85, 60, 75, 95].map((h, i) => (
+                            <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h}%` }} transition={{ delay: i * 0.05, duration: 1 }} className="flex-1 bg-primary/20 hover:bg-primary transition-colors cursor-help group relative">
+                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label text-[10px] font-black">${(h * 100).toLocaleString()}</span>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+                <div className="lg:col-span-4 bg-surface-container-low p-16 border border-outline-variant/10 shadow-sm">
+                    <h2 className="font-headline text-3xl italic mb-12 border-b border-black/5 pb-6">Urgent Alerts</h2>
+                    <div className="space-y-8">
+                        {rawMaterials.filter(m => m.status !== 'Stable').map(m => (
+                            <div key={m.id} className="flex items-center gap-6 p-6 bg-primary/5 border border-primary/10 transition-transform hover:translate-x-2 duration-500">
+                                <span className="material-symbols-outlined text-primary text-2xl">priority_high</span>
+                                <div>
+                                    <p className="font-label text-[10px] uppercase font-black tracking-widest">{m.name}</p>
+                                    <p className="font-label text-[9px] uppercase text-primary font-black mt-1">{m.status}</p>
+                                    <p className="font-body text-[11px] opacity-60 mt-2">Current: {m.amount} | Min: {m.threshold}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    )
+
+    const renderInventory = () => (
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-16">
+            <div className="flex justify-between items-end border-b border-outline-variant/10 pb-12">
+                <div>
+                    <h2 className="font-headline text-6xl italic font-light tracking-tight underline decoration-primary/5 underline-offset-[12px]">Raw Materials</h2>
+                    <p className="font-label text-[11px] uppercase tracking-[0.4em] font-black opacity-40 mt-6">Precious Metals & Gemstone Analytics</p>
+                </div>
+                <button onClick={() => handleAction('Restock Request')} className="bg-primary text-on-primary px-16 py-6 font-label uppercase tracking-[0.3em] text-[10px] font-black shadow-lux hover:bg-primary-dim transition-colors">Log Shipment</button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                {rawMaterials.map(m => (
+                    <div key={m.id} className={`p-10 border ${m.status === 'Critical' ? 'border-primary bg-primary/5' : 'border-outline-variant/10'} shadow-sm transition-all hover:shadow-lux`}>
+                        <div className="flex justify-between mb-8">
+                            <span className="font-label text-[10px] uppercase tracking-[0.2em] font-black opacity-40">{m.type}</span>
+                            <span className={`w-3 h-3 rounded-full ${m.status === 'Critical' ? 'bg-red-500 animate-ping' : m.status === 'Low Stock' ? 'bg-amber-500' : 'bg-green-500'}`} />
+                        </div>
+                        <h3 className="font-headline text-2xl italic mb-3">{m.name}</h3>
+                        <p className="font-headline text-4xl font-light mb-8">{m.amount}</p>
+                        <div className="flex justify-between border-t border-black/5 pt-6">
+                            <span className="font-label text-[10px] uppercase font-black opacity-40 tracking-widest">Min Req.</span>
+                            <span className="font-label text-[10px] uppercase font-black">{m.threshold}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </motion.div>
+    )
+
+    const renderCustomers = () => (
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-20">
+            <section className="space-y-12">
+                <h3 className="font-label text-[11px] tracking-[0.5em] uppercase font-black text-primary italic border-b border-primary/10 pb-6">Atelier Client Registry</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    {customers.map(c => (
+                        <div key={c.id} className="bg-surface-container-low p-12 border border-outline-variant/10 group hover:border-primary/30 transition-all hover:shadow-lux">
+                            <div className="flex justify-between mb-8">
+                                <span className={`px-4 py-2 text-[8px] uppercase tracking-[0.25em] font-black ${c.status === 'VIP' ? 'bg-primary text-on-primary' : 'bg-outline-variant/10'}`}>{c.status}</span>
+                                <span className="font-label text-[10px] font-black opacity-40">ClientID #{c.id}</span>
+                            </div>
+                            <h4 className="font-headline text-3xl italic font-light group-hover:text-primary transition-colors mb-2">{c.name}</h4>
+                            <p className="font-body text-[12px] opacity-60 mb-12 italic">{c.email}</p>
+                            <div className="grid grid-cols-2 gap-8 border-t border-black/5 pt-8">
+                                <div>
+                                    <p className="font-label text-[9px] uppercase opacity-40 font-black tracking-widest">Total Spent</p>
+                                    <p className="font-headline text-xl italic mt-2">{c.spend}</p>
+                                </div>
+                                <div>
+                                    <p className="font-label text-[9px] uppercase opacity-40 font-black tracking-widest">Preference</p>
+                                    <p className="font-body text-[11px] font-black mt-2">{c.preference}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="space-y-16 bg-surface-container/30 p-16 border border-outline-variant/10 shadow-lux-sm">
+                <div className="flex justify-between items-baseline border-b border-outline-variant/10 pb-8">
+                    <h3 className="font-headline text-4xl italic font-light">Bespoke Concierge</h3>
+                    <p className="font-label text-[11px] uppercase tracking-[0.4em] opacity-40 font-black italic">{bespokeRequests.length} Active Consultations</p>
+                </div>
+                <div className="space-y-8">
+                    {bespokeRequests.map(r => (
+                        <div key={r.id} className="bg-white/40 dark:bg-black/20 p-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 group hover:bg-white/60 transition-all">
+                            <div>
+                                <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">{r.id}</p>
+                                <h4 className="font-headline text-2xl italic group-hover:translate-x-2 transition-transform">{r.concept}</h4>
+                                <p className="font-body text-[12px] opacity-60 font-black mt-2">Atelier Client: {r.client} • Target Deadline: {r.deadline}</p>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-12 w-full lg:w-auto">
+                                <div className="text-right">
+                                    <p className="font-label text-[9px] uppercase opacity-40 font-black tracking-widest">Target Budget</p>
+                                    <p className="font-body text-sm font-black mt-1">{r.budget}</p>
+                                </div>
+                                <span className="px-8 py-4 border border-primary/20 text-primary font-label text-[10px] uppercase tracking-[0.25em] font-black">{r.status}</span>
+                                <button onClick={() => handleAction('Open Design File')} className="material-symbols-outlined text-outline hover:text-primary transition-all hover:scale-125">palette</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        </motion.div>
+    )
+
+    const renderAnalytics = () => (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-24">
+            <div className="flex flex-col md:flex-row justify-between items-baseline border-b border-outline-variant/10 pb-12 gap-8">
+                <div>
+                    <h2 className="font-headline text-6xl italic font-light tracking-tight">Performance Analytics</h2>
+                    <p className="font-label text-[11px] uppercase tracking-[0.4em] font-black opacity-40 mt-6 italic">Deep insights into your packaging lab throughput.</p>
+                </div>
+                <div className="flex gap-4">
+                    {['Daily', 'Monthly', 'Yearly'].map(period => (
+                        <button key={period} className="px-10 py-3 border border-outline-variant/20 font-label text-[10px] uppercase tracking-[0.2em] font-black hover:bg-primary hover:text-on-primary transition-all">{period}</button>
+                    ))}
+                </div>
+            </div>
+
+            {/* Packaging Lab Throughput Metrics */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-8">
+                {[
+                    { label: "Total Users", value: "7" },
+                    { label: "Total Orders", value: "8" },
+                    { label: "Gross Rev", value: "₹9,142.5" },
+                    { label: "Cart/Wish", value: "1" },
+                    { label: "Items Sold", value: "420" },
+                    { label: "Discounts", value: "₹0" },
+                    { label: "Avg Order", value: "₹1,142.81" }
+                ].map((kpi) => (
+                    <div key={kpi.label} className="bg-surface-container-low p-10 border border-outline-variant/10 shadow-sm text-center group hover:bg-primary transition-all duration-700">
+                        <p className="font-label text-[9px] uppercase tracking-[0.2em] font-black opacity-40 mb-4 group-hover:text-on-primary group-hover:opacity-100">{kpi.label}</p>
+                        <h4 className="font-headline text-2xl italic font-light group-hover:text-on-primary">{kpi.value}</h4>
+                    </div>
+                ))}
+            </div>
+
+            {/* Growth Velocity Graph */}
+            <div className="bg-surface-container-low p-16 border border-outline-variant/10 shadow-lux">
+                <div className="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+                    <h3 className="font-headline text-4xl italic font-light">Growth Velocity</h3>
+                    <span className="font-label text-[11px] uppercase tracking-[0.3em] text-primary font-black italic">Commercial Momentum: +18.4% YoY</span>
+                </div>
+                <div className="relative h-96 w-full overflow-hidden px-8">
+                    <svg className="w-full h-full" viewBox="0 0 1000 300" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
+                                <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+                            </linearGradient>
+                        </defs>
+                        <motion.path
+                            initial={{ d: "M0 300 L0 250 L100 250 L200 250 L300 250 L400 250 L500 250 L600 250 L700 250 L800 250 L900 250 L1000 250 L1000 300 Z" }}
+                            animate={{ d: "M0 300 L0 240 L100 220 L200 250 L300 180 L400 190 L500 120 L600 140 L700 80 L800 100 L900 40 L1000 60 L1000 300 Z" }}
+                            transition={{ duration: 2, ease: "easeInOut" }}
+                            fill="url(#gradient)"
+                        />
+                        <motion.path
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ duration: 2.5, ease: "easeInOut" }}
+                            d="M0 240 L100 220 L200 250 L300 180 L400 190 L500 120 L600 140 L700 80 L800 100 L900 40 L1000 60"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            className="text-primary opacity-80"
+                        />
+                        {[0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000].map((x, i) => {
+                            const ys = [240, 220, 250, 180, 190, 120, 140, 80, 100, 40, 60];
+                            return (
+                                <motion.circle
+                                    key={i}
+                                    initial={{ opacity: 0, r: 0 }}
+                                    animate={{ opacity: 1, r: 5 }}
+                                    transition={{ delay: 1.5 + i * 0.1 }}
+                                    cx={x}
+                                    cy={ys[i]}
+                                    className="fill-primary"
+                                />
+                            );
+                        })}
+                    </svg>
+                    <div className="flex justify-between mt-12 font-label text-[10px] uppercase opacity-40 font-black border-t border-black/5 pt-6 tracking-widest">
+                        {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map(m => (
+                            <span key={m}>{m}</span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div className="bg-surface-container-low p-16 border border-outline-variant/10 shadow-lux">
+                    <h3 className="font-headline text-3xl italic mb-12">Collection Comparison</h3>
+                    <div className="space-y-12">
+                        {[
+                            { name: 'Necklaces', value: 45, color: 'bg-primary' },
+                            { name: 'Rings', value: 30, color: 'bg-secondary' },
+                            { name: 'Bracelets', value: 25, color: 'bg-outline' }
+                        ].map(c => (
+                            <div key={c.name} className="space-y-6">
+                                <div className="flex justify-between font-label text-[11px] uppercase font-black opacity-60 tracking-widest">
+                                    <span>{c.name}</span>
+                                    <span>{c.value}%</span>
+                                </div>
+                                <div className="h-2 bg-surface-container overflow-hidden">
+                                    <motion.div initial={{ width: 0 }} animate={{ width: `${c.value}%` }} transition={{ duration: 1.5 }} className={`h-full ${c.color}`} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="bg-surface-container-low p-16 border border-outline-variant/10 shadow-lux-sm">
+                    <h3 className="font-headline text-3xl italic mb-12">Sales Heatmap</h3>
+                    <div className="grid grid-cols-7 gap-4">
+                        {Array.from({ length: 28 }).map((_, i) => (
+                            <div key={i} className={`aspect-square opacity-${Math.floor(Math.random() * 5 + 3) * 10} bg-primary transition-all cursor-pointer hover:scale-125 hover:opacity-100 hover:shadow-lux`} />
+                        ))}
+                    </div>
+                    <div className="flex justify-between mt-10 font-label text-[9px] uppercase opacity-40 font-black italic tracking-[0.2em]">
+                        <span>Volume: Minimalist</span>
+                        <span>Volume: Maximalist</span>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    )
+
+    const renderCMS = () => (
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-20">
+            <div className="border-b border-outline-variant/10 pb-10">
+                <h2 className="font-headline text-6xl italic font-light">Content Studio</h2>
+                <p className="font-label text-[11px] uppercase tracking-[0.4em] font-black opacity-40 mt-6 italic">Global Aesthetics & Storytelling Manager</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div className="bg-surface-container-low p-16 border border-outline-variant/10 space-y-12">
+                    <h3 className="font-headline text-3xl italic border-b border-black/5 pb-6">Home Hero Stack</h3>
+                    <div className="space-y-10">
+                        <div>
+                            <label className="block font-label text-[10px] uppercase tracking-widest font-black mb-4">Primary Hero Image</label>
+                            <div className="flex gap-6">
+                                <input type="text" placeholder="https://assets.sovra.com/hero-01.jpg" className="flex-1 bg-surface border border-outline-variant/20 p-6 font-body text-xs focus:ring-1 focus:ring-primary outline-none" />
+                                <button className="material-symbols-outlined p-4 bg-primary text-on-primary hover:bg-primary-dim transition-all">upload</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block font-label text-[10px] uppercase tracking-widest font-black mb-4">Hero Headline</label>
+                            <input type="text" defaultValue="Celestial Echoes" className="w-full bg-surface border border-outline-variant/20 p-6 font-headline text-2xl italic focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                    </div>
+                    <button onClick={() => handleAction('Update Hero')} className="w-full py-6 bg-primary text-on-primary font-label text-[11px] uppercase tracking-[0.4em] font-black shadow-lux hover:scale-[1.02] transition-transform">Publish Changes</button>
+                </div>
+
+                <div className="bg-surface-container-low p-16 border border-outline-variant/10 space-y-12">
+                    <h3 className="font-headline text-3xl italic border-b border-black/5 pb-6">Atelier Story Content</h3>
+                    <div className="space-y-6">
+                        <div>
+                            <label className="block font-label text-[10px] uppercase tracking-widest font-black mb-4">Story Narrative</label>
+                            <textarea rows={8} className="w-full bg-surface border border-outline-variant/20 p-8 font-body text-sm leading-[1.8] focus:ring-1 focus:ring-primary outline-none italic opacity-70" defaultValue="Crafting timeless elegance for the modern soul. Founded in Paris, inspired by the stars, and forged in the heart of Tuscany..." />
+                        </div>
+                    </div>
+                    <button onClick={() => handleAction('Update Story')} className="w-full py-6 bg-primary text-on-primary font-label text-[11px] uppercase tracking-[0.4em] font-black shadow-lux hover:scale-[1.02] transition-transform">Update Narrative</button>
+                </div>
+            </div>
+        </motion.div>
+    )
+
+    const filteredOrders = orders.filter(o => {
+        const matchesSearch = o.id.toLowerCase().includes(orderSearch.toLowerCase()) || 
+                             o.customer.toLowerCase().includes(orderSearch.toLowerCase()) ||
+                             o.email.toLowerCase().includes(orderSearch.toLowerCase());
+        const matchesFilter = orderFilter === 'All' || o.status === orderFilter;
+        return matchesSearch && matchesFilter;
+    })
+
+    return (
+        <div className="pt-24 pb-32 px-8 md:px-16 lg:px-24 max-w-[1920px] mx-auto min-h-screen selection:bg-primary-container selection:text-on-primary-container bg-[#fffcf7]">
+            <header className="mb-24 flex flex-col xl:flex-row justify-between items-center border-b border-outline-variant/10 pb-16 gap-16">
+                <div className="space-y-6 text-center xl:text-left">
+                    <h1 className="font-headline text-7xl md:text-[9rem] leading-[0.85] italic font-light tracking-tighter transition-all opacity-85">Admin Control</h1>
+                    <div className="flex items-center justify-center xl:justify-start gap-6 text-primary">
+                        <span className="material-symbols-outlined animate-pulse text-3xl">lock</span>
+                        <p className="font-label text-[11px] uppercase tracking-[0.6em] font-black opacity-40 italic font-bold">Secure Administrator Node</p>
+                    </div>
+                </div>
+
+                <nav className="flex flex-wrap items-center justify-center gap-2 bg-white/50 backdrop-blur-md p-3 border border-outline-variant/10 shadow-lux-sm">
+                    {[
+                        { id: 'dashboard', name: 'Maint', icon: 'grid_view' },
+                        { id: 'products', name: 'Pieces', icon: 'inventory' },
+                        { id: 'orders', name: 'Orders', icon: 'shopping_cart' },
+                        { id: 'inventory', name: 'Metals', icon: 'diamond' },
+                        { id: 'customers', name: 'Clients', icon: 'diversity_1' },
+                        { id: 'analytics', name: 'Insights', icon: 'query_stats' },
+                        { id: 'cms', name: 'Studio', icon: 'auto_fix_high' }
+                    ].map((tab) => (
+                        <button 
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`flex items-center gap-4 px-8 md:px-10 py-6 transition-all duration-700 group ${activeTab === tab.id ? 'bg-primary text-on-primary shadow-lux scale-[1.05] z-10' : 'text-secondary hover:text-primary hover:bg-black/5'}`}
+                        >
+                            <span className="material-symbols-outlined text-base group-hover:scale-125 transition-transform">{tab.icon}</span>
+                            <span className="font-label text-[11px] uppercase tracking-[0.4em] font-black">{tab.name}</span>
+                        </button>
+                    ))}
+                </nav>
+            </header>
+
+            <main className="max-w-[1720px] mx-auto">
+                <AnimatePresence mode="wait">
+                    {activeTab === 'dashboard' && renderDashboard()}
+                    {activeTab === 'inventory' && renderInventory()}
+                    {activeTab === 'customers' && renderCustomers()}
+                    {activeTab === 'analytics' && renderAnalytics()}
+                    {activeTab === 'cms' && renderCMS()}
+                    {activeTab === 'products' && (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-16">
+                            <div className="flex flex-col md:flex-row justify-between items-baseline border-b border-outline-variant/10 pb-12 gap-8">
+                                <div>
+                                    <h2 className="font-headline text-6xl italic font-light tracking-tight">Inventory Manager</h2>
+                                    <p className="font-label text-[11px] uppercase opacity-40 font-black mt-6 italic tracking-[0.3em]">{products.length} Masterpieces cataloged</p>
+                                </div>
+                                <button className="bg-primary text-on-primary px-16 py-6 font-label uppercase tracking-[0.3em] text-[10px] font-black shadow-lux hover:bg-primary-dim transition-all">+ Catalog Piece</button>
+                            </div>
+                            <div className="overflow-x-auto bg-surface-container-low p-12 border border-outline-variant/10">
+                                <table className="w-full text-left min-w-[800px]">
+                                    <thead>
+                                        <tr className="border-b border-outline-variant/10 text-outline uppercase tracking-[0.3em] text-[11px] font-black">
+                                            <th className="py-12 pl-6">Piece</th>
+                                            <th className="py-12 px-6">Category</th>
+                                            <th className="py-12 px-6">Material</th>
+                                            <th className="py-12 px-6 text-right">Price</th>
+                                            <th className="py-12 pr-6 text-right">Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-black/5">
+                                        {products.map(p => (
+                                            <tr key={p.id} className="group hover:bg-surface-container/50 transition-all duration-700">
+                                                <td className="py-12 pl-6 flex items-center gap-8">
+                                                    <div className="w-24 h-24 bg-surface-container overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000 shadow-sm border border-black/5">
+                                                        <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
+                                                    </div>
+                                                    <h3 className="font-headline text-2xl italic group-hover:text-primary transition-colors underline decoration-transparent group-hover:decoration-primary/30 underline-offset-8">{p.name}</h3>
+                                                </td>
+                                                <td className="py-12 px-6 font-label text-[10px] uppercase font-black opacity-60 italic">{p.category}</td>
+                                                <td className="py-12 px-6 font-label text-[10px] uppercase font-black opacity-40">{p.material}</td>
+                                                <td className="py-12 px-6 text-right font-headline text-2xl font-light">${p.price.toLocaleString()}</td>
+                                                <td className="py-12 pr-6 text-right font-label text-[11px] font-black tracking-widest">{p.stock} Units</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </motion.div>
+                    )}
+                    {activeTab === 'orders' && (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-16">
+                            <div className="border-b border-outline-variant/10 pb-12 flex flex-col md:flex-row justify-between items-baseline gap-12">
+                                <h2 className="font-headline text-6xl italic font-light tracking-tight">Active Shipments</h2>
+                                <div className="flex-1 w-full max-w-2xl">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search by Order ID, Name or Email..." 
+                                        value={orderSearch}
+                                        onChange={(e) => setOrderSearch(e.target.value)}
+                                        className="w-full bg-surface-container-low border border-outline-variant/20 p-6 font-body text-sm focus:ring-1 focus:ring-primary outline-none italic tracking-wide"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 border-b border-outline-variant/5 pb-12">
+                                {['All', 'Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map(status => (
+                                    <button 
+                                        key={status}
+                                        onClick={() => setOrderFilter(status)}
+                                        className={`px-10 py-4 font-label text-[10px] uppercase tracking-[0.3em] font-black transition-all ${orderFilter === status ? 'bg-primary text-on-primary shadow-lux' : 'bg-surface-container-low text-secondary hover:text-primary'}`}
+                                    >
+                                        {status}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="space-y-8">
+                                {filteredOrders.length > 0 ? filteredOrders.map(o => (
+                                    <motion.div layout key={o.id} className="bg-surface-container-low p-12 border border-outline-variant/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10 group hover:shadow-lux transition-all duration-700">
+                                        <div className="space-y-2">
+                                            <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">{o.id}</p>
+                                            <h3 className="font-headline text-3xl italic font-light group-hover:text-primary transition-colors">{o.customer}</h3>
+                                            <p className="font-label text-[11px] uppercase tracking-[0.2em] opacity-40 font-black italic">{o.items} • {o.date}</p>
+                                            <p className="font-body text-[11px] opacity-30 mt-3 font-medium">{o.email}</p>
+                                        </div>
+                                        <div className="flex items-center gap-20 w-full md:w-auto">
+                                            <div className="text-right">
+                                                <p className="font-label text-[10px] uppercase opacity-40 font-black tracking-widest">Grand Total</p>
+                                                <p className="font-headline text-3xl font-light mt-2">{o.total}</p>
+                                            </div>
+                                            <span className={`px-8 py-4 border border-primary/20 text-primary font-label text-[10px] uppercase tracking-[0.3em] font-black italic min-w-[140px] text-center ${o.status === 'Cancelled' ? 'border-red-200 text-red-500' : ''}`}>{o.status}</span>
+                                        </div>
+                                    </motion.div>
+                                )) : (
+                                    <div className="py-32 text-center opacity-40">
+                                        <span className="material-symbols-outlined text-8xl mb-6">search_off</span>
+                                        <p className="font-label text-[14px] uppercase tracking-[0.4em] font-black italic">No records unearthed for your search</p>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </main>
+        </div>
+    )
+}
+
+export default Admin
