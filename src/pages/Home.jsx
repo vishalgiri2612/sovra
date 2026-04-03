@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import EditorialHero from '../components/EditorialHero'
 
 const Home = () => {
     useEffect(() => {
@@ -46,39 +47,7 @@ const Home = () => {
 
     return (
         <div className="bg-surface selection:bg-primary/10 font-body">
-            {/* Enhanced Hero Section */}
-            <section className="relative h-screen flex items-center overflow-hidden bg-surface-container-low pt-20">
-                <div className="absolute inset-0 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuBluJKo47CVOKnlTyQgCTqmwyBwn4oyI9Fbp5JIpO0UCpHxwG_CtUeMxjf4DrSihEEU8jVSLRAwJ4esRp4Tk2QaH26bXp0coam9A_4stPTbT08iMlwzRMu5IGikVbJvpmaMjfh8iNxVfB8zWqOiKTfWV05fm9qhUMzDPnbqP9092aQq5Vd-GRCj-YVD_AsG_LZQY-WV014vgGalBflPHI5cL7lqGqEQZjR22_BK8NBYEfLjt31ep2Ywk9DDZw65dYVJrWKRRfWKwamh')] bg-cover bg-center opacity-10 animate-slow-zoom"></div>
-                <div className="max-w-[1720px] mx-auto w-full px-8 md:px-16 grid grid-cols-12 gap-0 items-center relative z-10">
-                    <div className="col-span-12 lg:col-span-5 py-12">
-                        <span className="font-label text-[10px] kerning-widest uppercase text-primary mb-6 block opacity-80 animate-reveal-down">Season MMXXIV Collection</span>
-                        <h1 className="font-headline text-[clamp(4.5rem,10vw,8rem)] leading-[0.8] tracking-[-0.05em] mb-8 italic font-light animate-reveal-up" style={{ animationDelay: '0.2s' }}>
-                            Celestial<br />
-                            <span className="ml-16 md:ml-24 text-shimmer">Echoes</span>
-                        </h1>
-                        <p className="font-body text-base leading-relaxed text-secondary-dim max-w-[340px] mb-10 font-light animate-reveal-up" style={{ animationDelay: '0.4s' }}>
-                            A symphony of light hand-sculpted in gold. Where the ancient art of Tuscan goldsmiths meets the infinite geometry of the stars.
-                        </p>
-                        <div className="animate-reveal-up" style={{ animationDelay: '0.6s' }}>
-                            <Link to="/shop" className="group relative inline-block px-12 py-5 border border-primary text-primary overflow-hidden transition-all duration-700">
-                                <span className="relative z-10 font-label text-[11px] kerning-widest uppercase transition-colors duration-500 group-hover:text-white">Discover Collection</span>
-                                <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"></div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="hidden lg:col-span-7 lg:flex justify-end relative">
-                        <div className="relative w-full max-w-[720px] aspect-[4/5] overflow-hidden shadow-2xl animate-reveal-up" style={{ animationDelay: '0.3s' }}>
-                            <img alt="High-end jewelry model" className="w-full h-full object-cover animate-slow-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBluJKo47CVOKnlTyQgCTqmwyBwn4oyI9Fbp5JIpO0UCpHxwG_CtUeMxjf4DrSihEEU8jVSLRAwJ4esRp4Tk2QaH26bXp0coam9A_4stPTbT08iMlwzRMu5IGikVbJvpmaMjfh8iNxVfB8zWqOiKTfWV05fm9qhUMzDPnbqP9092aQq5Vd-GRCj-YVD_AsG_LZQY-WV014vgGalBflPHI5cL7lqGqEQZjR22_BK8NBYEfLjt31ep2Ywk9DDZw65dYVJrWKRRfWKwamh" />
-                            <div className="shimmer-effect absolute inset-0 pointer-events-none opacity-40"></div>
-                        </div>
-                        {/* Floating Art Label */}
-                        <div className="absolute bottom-16 -left-16 bg-white/90 backdrop-blur-md p-10 max-w-[240px] shadow-lg animate-reveal-up" style={{ animationDelay: '0.8s' }}>
-                            <span className="font-headline italic text-2xl text-primary block mb-2">Nº 01</span>
-                            <p className="text-[10px] font-label kerning-widest uppercase text-secondary leading-loose">The Ethereal Gaze • Heritage Series</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <EditorialHero />
 
             {/* Manifesto Section */}
             <section className="py-32 px-8">

@@ -18,17 +18,15 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Collections', path: '/shop' },
         { name: 'Fine Jewelry', path: '/shop' },
-        { name: 'Bespoke', path: '/craftsmanship' },
         { name: 'Heritage', path: '/story' }
     ]
 
     return (
-        <header 
-            className={`fixed top-0 w-full z-50 flex justify-center pointer-events-none transition-all duration-700 ${
-                isScrolled ? 'pt-4 lg:pt-6 px-6' : 'pt-0 px-0'
-            }`}
+        <header
+            className={`fixed top-0 w-full z-50 flex justify-center pointer-events-none transition-all duration-700 ${isScrolled ? 'pt-4 lg:pt-6 px-6' : 'pt-0 px-0'
+                }`}
         >
-            <motion.nav 
+            <motion.nav
                 initial={false}
                 animate={{
                     width: isScrolled ? 'auto' : '100%',
@@ -48,10 +46,10 @@ const Navbar = () => {
                 {/* Left Logo */}
                 <div className="flex-initial flex items-center pr-8">
                     <Link to="/" className="flex items-center group">
-                        <img 
-                            src={logo} 
-                            alt="SOVRA" 
-                            className={`transition-all duration-700 mix-blend-multiply dark:invert ${isScrolled ? 'h-8' : 'h-14'} w-auto`} 
+                        <img
+                            src={logo}
+                            alt="SOVRA"
+                            className={`transition-all duration-700 mix-blend-multiply dark:invert ${isScrolled ? 'h-8' : 'h-14'} w-auto`}
                         />
                     </Link>
                 </div>
@@ -62,15 +60,14 @@ const Navbar = () => {
                         <Link
                             key={link.name}
                             to={link.path}
-                            className={`whitespace-nowrap transition-colors duration-400 relative group font-medium ${
-                                location.pathname === link.path ? 'text-primary' : 'text-[#656464] hover:text-[#373831]'
-                            }`}
+                            className={`whitespace-nowrap transition-colors duration-400 relative group font-medium ${location.pathname === link.path ? 'text-primary' : 'text-[#656464] hover:text-[#373831]'
+                                }`}
                         >
                             {link.name}
                             {location.pathname === link.path && (
-                                <motion.span 
-                                    layoutId="navUnderline" 
-                                    className="absolute -bottom-1 left-0 w-full h-[1px] bg-primary" 
+                                <motion.span
+                                    layoutId="navUnderline"
+                                    className="absolute -bottom-1 left-0 w-full h-[1px] bg-primary"
                                 />
                             )}
                             {location.pathname !== link.path && (

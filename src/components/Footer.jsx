@@ -19,7 +19,6 @@ const Footer = () => {
                     <h4 className="font-label text-xs tracking-widest uppercase font-bold text-[#6e5b44] dark:text-[#ead0b3]">Explore</h4>
                     <Link className="text-xs tracking-widest uppercase text-[#656464] dark:text-[#babab0] hover:text-[#6e5b44] transition-colors font-bold" to="/story">About Us</Link>
                     <Link className="text-xs tracking-widest uppercase text-[#656464] dark:text-[#babab0] hover:text-[#6e5b44] transition-colors font-bold" to="/story">Atelier Story</Link>
-                    <Link className="text-xs tracking-widest uppercase text-[#656464] dark:text-[#babab0] hover:text-[#6e5b44] transition-colors font-bold" to="/craftsmanship">Bespoke Services</Link>
                 </div>
 
                 <div className="flex flex-col gap-6">

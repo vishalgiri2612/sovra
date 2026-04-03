@@ -11,6 +11,7 @@ import Story from './pages/Story'
 import Craftsmanship from './pages/Craftsmanship'
 import Ethics from './pages/Ethics'
 import Admin from './pages/Admin'
+import CustomCursor from './components/CustomCursor'
 
 const ScrollToTop = () => {
   const { pathname } = useLocation()
@@ -23,6 +24,7 @@ const ScrollToTop = () => {
 function App() {
   return (
     <Router>
+      <CustomCursor />
       <ScrollToTop />
       <Navbar />
       <main className="min-h-screen">
