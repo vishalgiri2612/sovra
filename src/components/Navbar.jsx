@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import logo from '../assets/logo.jpg'
+
 
 const Navbar = () => {
     const location = useLocation()
@@ -47,9 +47,9 @@ const Navbar = () => {
                 <div className="flex-initial flex items-center pr-8">
                     <Link to="/" className="flex items-center group">
                         <img
-                            src={logo}
+                            src="/logo.jpg"
                             alt="SOVRA"
-                            className={`transition-all duration-700 mix-blend-multiply dark:invert ${isScrolled ? 'h-14' : 'h-24'} w-auto`}
+                            className={`transition-all duration-700 mix-blend-multiply ${isScrolled ? 'h-14' : 'h-24'} w-auto`}
                         />
                     </Link>
                 </div>
