@@ -81,7 +81,7 @@ const Story = () => {
                         >
                             <div className="absolute -top-16 -left-16 w-64 h-64 bg-primary/5 -z-10 rounded-full blur-3xl"></div>
                             <img
-                                alt="Parisian Atelier"
+                                alt="Parisian SOVRA"
                                 className="w-full aspect-[4/5] object-cover grayscale brightness-90 shadow-2xl transition-all duration-[3s] hover:grayscale-0"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUWQHZ982rZ6JgLQwdyd1woQhDp8OnmFrrktrGOVVhpAE_ePKgT_voBpiMTMKBM1Xgq4ApKuQr9lSUFaxQry6zGnPBd5h9KB28PK_wbx7ohuw6K566qHIgVt26NrjaKCgtSOyg2vIW7Hi89kCfAZ6C9CG_UEwZWlorJIHDKvVd7YplmNOdyyU7iSZo9DrOdbyWIVxLg_ps6gMuuAHkhOGjE-e8gxejdxPxAmRmnh9gto97inL_P_2pEzEZCzNBa3rKJuZmIbUx99xI"
                             />
@@ -105,7 +105,7 @@ const Story = () => {
 
                             <div className="space-y-10 border-l border-outline-variant/20 pl-12 relative">
                                 {[
-                                    { year: '1924', title: 'The Founding', desc: 'Lucien Sovra opens his first atelier, blending classical French techniques with experimental aesthetics.', active: true },
+                                    { year: '1924', title: 'The Founding', desc: 'Lucien Sovra opens his first SOVRA, blending classical French techniques with experimental aesthetics.', active: true },
                                     { year: '1958', title: 'The Expansion', desc: 'Under Marcelle Sovra, the brand becomes a synonym for "Modern Baroque," captivating the elite of post-war Europe.', active: false },
                                     { year: '2024', title: 'The New Era', desc: 'Today, led by the third generation, we continue to push the boundaries of conscious luxury and digital artistry.', active: false }
                                 ].map((item, idx) => (
@@ -127,11 +127,11 @@ const Story = () => {
                     </div>
                 </section>
 
-                {/* Artisanal Craftsmanship (The Atelier Experience) */}
+                {/* Artisanal Craftsmanship (The SOVRA Experience) */}
                 <section className="bg-surface py-32 px-6 md:px-24">
                     <div className="max-w-[1720px] mx-auto">
                         <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12 text-center md:text-left">
-                            <h2 className="font-headline text-6xl md:text-8xl leading-none italic font-light">The Atelier Experience</h2>
+                            <h2 className="font-headline text-6xl md:text-8xl leading-none italic font-light">The SOVRA Experience</h2>
                             <p className="max-w-md font-body text-xl text-secondary font-light italic leading-relaxed opacity-70">
                                 Every piece is hand-forged in our private sanctuary, where time is the most valuable material.
                             </p>

@@ -96,7 +96,7 @@ const Shop = () => {
                             The {activeFilter === 'all' ? 'Entire' : activeFilter} Curations
                         </h1>
                         <p className="font-body text-lg text-secondary leading-[1.7] font-light">
-                            An exploration of form and light. Each piece in our celestial collection is handcrafted using ethically sourced 18k gold and high-clarity gemstones in our Tuscan atelier.
+                            An exploration of form and light. Each piece in our celestial collection is handcrafted using ethically sourced 18k gold and high-clarity gemstones in our Tuscan SOVRA.
                         </p>
                     </div>
                     {activeFilter !== 'all' && (
@@ -151,7 +151,7 @@ const Shop = () => {
                         <div>
                             <h3 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-8 font-bold">Collection</h3>
                             <div className="space-y-5">
-                                {['Celestial Body', 'Ether Essence', 'Heritage Atelier'].map(collection => (
+                                {['Celestial Body', 'Ether Essence', 'Heritage SOVRA'].map(collection => (
                                     <label key={collection} className="flex items-center group cursor-pointer">
                                         <input className="w-4 h-4 rounded-none border-outline-variant text-primary focus:ring-0 bg-transparent" name="collection" type="radio"/>
                                         <span className="ml-4 font-label text-xs uppercase tracking-widest text-secondary group-hover:text-primary transition-colors font-medium">{collection}</span>

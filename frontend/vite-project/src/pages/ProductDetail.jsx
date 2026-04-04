@@ -157,10 +157,10 @@ const ProductDetail = () => {
                     <div className="order-1 md:order-2 space-y-8">
                         <h3 className="font-headline text-4xl mb-8 font-light italic leading-tight">Artistry in the Infinite</h3>
                         <p className="font-body text-on-surface-variant text-xl leading-relaxed italic opacity-85">
-                            Each piece in our Nova collection is handcrafted in our Paris atelier. The heart silhouette is achieved through a proprietary laser-engraving technique that creates microscopic facets on the gold surface, allowing it to shimmer even in the lowest light while maintaining its resilience.
+                            Each piece in our Nova collection is handcrafted in our Paris SOVRA. The heart silhouette is achieved through a proprietary laser-engraving technique that creates microscopic facets on the gold surface, allowing it to shimmer even in the lowest light while maintaining its resilience.
                         </p>
                         <Link className="inline-block font-label text-[10px] tracking-widest uppercase border-b border-primary pb-3 text-primary hover:opacity-70 transition-all font-bold" to="/shop">
-                            Discover the Atelier
+                            Discover the SOVRA
                         </Link>
                     </div>
                 </div>

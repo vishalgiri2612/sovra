@@ -78,7 +78,7 @@
   }
 
   body {
-    @apply cursor-none bg-surface font-body text-on-surface selection:bg-primary/10;
+    @apply bg-surface font-body text-on-surface selection:bg-primary/10;
     background-image: radial-gradient(#6e5b44 0.5px, transparent 0.5px);
     background-size: 40px 40px;
     background-attachment: fixed;

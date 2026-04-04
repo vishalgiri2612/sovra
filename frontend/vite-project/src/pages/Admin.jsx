@@ -17,7 +17,7 @@ const Admin = () => {
         { id: "#ORD-88291", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Ethereal Band", total: "$1,250", status: "Delivered", date: "Oct 14, 2023" },
         { id: "#ORD-88104", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Celestial Drop Earrings", total: "$890", status: "Shipped", date: "Nov 02, 2023" },
         { id: "#ORD-88542", customer: "Mark Sterling", email: "mark.s@finance.com", items: "L'Aube Pendant", total: "$4,200", status: "Pending", date: "Dec 12, 2023" },
-        { id: "#ORD-88901", customer: "Elena Rossi", email: "elena@atelier.it", items: "Solitude Ring", total: "$2,450", status: "Processing", date: "Jan 05, 2024" }
+        { id: "#ORD-88901", customer: "Elena Rossi", email: "elena@SOVRA.it", items: "Solitude Ring", total: "$2,450", status: "Processing", date: "Jan 05, 2024" }
     ])
 
     const [rawMaterials] = useState([
@@ -30,7 +30,7 @@ const Admin = () => {
     const [customers] = useState([
         { id: 1, name: "Julianne Vora", email: "j.vora@luxury.com", orders: 12, spend: "$45,200", preference: "High Jewelry", status: "VIP" },
         { id: 2, name: "Mark Sterling", email: "mark.s@finance.com", orders: 4, spend: "$12,800", preference: "Timepieces", status: "Regular" },
-        { id: 3, name: "Elena Rossi", email: "elena@atelier.it", orders: 1, spend: "$8,500", preference: "Bespoke", status: "New" }
+        { id: 3, name: "Elena Rossi", email: "elena@SOVRA.it", orders: 1, spend: "$8,500", preference: "Bespoke", status: "New" }
     ])
 
     const [bespokeRequests] = useState([
@@ -126,7 +126,7 @@ const Admin = () => {
     const renderCustomers = () => (
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-20">
             <section className="space-y-12">
-                <h3 className="font-label text-[11px] tracking-[0.5em] uppercase font-black text-primary italic border-b border-primary/10 pb-6">Atelier Client Registry</h3>
+                <h3 className="font-label text-[11px] tracking-[0.5em] uppercase font-black text-primary italic border-b border-primary/10 pb-6">SOVRA Client Registry</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                     {customers.map(c => (
                         <div key={c.id} className="bg-surface-container-low p-12 border border-outline-variant/10 group hover:border-primary/30 transition-all hover:shadow-lux">
@@ -162,7 +162,7 @@ const Admin = () => {
                             <div>
                                 <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">{r.id}</p>
                                 <h4 className="font-headline text-2xl italic group-hover:translate-x-2 transition-transform">{r.concept}</h4>
-                                <p className="font-body text-[12px] opacity-60 font-black mt-2">Atelier Client: {r.client} • Target Deadline: {r.deadline}</p>
+                                <p className="font-body text-[12px] opacity-60 font-black mt-2">SOVRA Client: {r.client} • Target Deadline: {r.deadline}</p>
                             </div>
                             <div className="flex flex-wrap items-center gap-12 w-full lg:w-auto">
                                 <div className="text-right">
@@ -329,7 +329,7 @@ const Admin = () => {
                 </div>
 
                 <div className="bg-surface-container-low p-16 border border-outline-variant/10 space-y-12">
-                    <h3 className="font-headline text-3xl italic border-b border-black/5 pb-6">Atelier Story Content</h3>
+                    <h3 className="font-headline text-3xl italic border-b border-black/5 pb-6">SOVRA Story Content</h3>
                     <div className="space-y-6">
                         <div>
                             <label className="block font-label text-[10px] uppercase tracking-widest font-black mb-4">Story Narrative</label>

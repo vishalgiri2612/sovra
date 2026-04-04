@@ -34,9 +34,9 @@ const Navbar = () => {
                     borderRadius: isScrolled ? '100px' : '0px',
                     backgroundColor: isScrolled ? 'rgba(255, 252, 247, 0.95)' : 'rgba(255, 252, 247, 0.98)',
                     boxShadow: isScrolled ? '0 20px 40px -10px rgba(0,0,0,0.1)' : '0 0px 0px rgba(0,0,0,0)',
-                    paddingLeft: isScrolled ? '32px' : '48px',
-                    paddingRight: isScrolled ? '32px' : '48px',
-                    height: isScrolled ? '56px' : '72px',
+                    paddingLeft: isScrolled ? '32px' : '64px',
+                    paddingRight: isScrolled ? '32px' : '64px',
+                    height: isScrolled ? '72px' : '108px',
                     borderWidth: isScrolled ? '1px' : '0px',
                     borderBottomWidth: isScrolled ? '1px' : '1px'
                 }}
@@ -49,7 +49,7 @@ const Navbar = () => {
                         <img
                             src={logo}
                             alt="SOVRA"
-                            className={`transition-all duration-700 mix-blend-multiply dark:invert ${isScrolled ? 'h-8' : 'h-14'} w-auto`}
+                            className={`transition-all duration-700 mix-blend-multiply dark:invert ${isScrolled ? 'h-14' : 'h-24'} w-auto`}
                         />
                     </Link>
                 </div>

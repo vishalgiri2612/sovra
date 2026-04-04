@@ -56,7 +56,7 @@ const Home = () => {
                         <div className="w-32 h-[1px] bg-primary/30 rotate-90 md:rotate-0"></div>
                     </div>
                     <div className="w-full md:w-2/3">
-                        <span className="font-headline italic text-2xl text-primary mb-6 block opacity-70">The Atelier</span>
+                        <span className="font-headline italic text-2xl text-primary mb-6 block opacity-70">The SOVRA</span>
                         <h2 className="font-headline text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] mb-8 font-light">Poetry in Metal & Stone</h2>
                         <p className="font-body text-2xl leading-relaxed text-secondary-dim font-light italic max-w-2xl">
                             "Born from the golden silence of the Tuscan hills, SOVRA represents the intersection of ancestral craftsmanship and ethereal vision. Every piece is a whispered secret between the artisan and the earth."
@@ -193,7 +193,7 @@ const Home = () => {
                 <div className="max-w-[800px] mx-auto text-center px-8 relative z-10 scroll-reveal">
                     <h2 className="font-headline text-5xl mb-8 font-light italic text-primary">The Inner Circle</h2>
                     <p className="font-body text-secondary-dim text-[11px] kerning-widest uppercase mb-12 opacity-80 leading-loose">
-                        A sanctuary for connoisseurs. Be the first to witness new collections<br />and read our seasonal atelier journal.
+                        A sanctuary for connoisseurs. Be the first to witness new collections<br />and read our seasonal SOVRA journal.
                     </p>
                     <form className="flex flex-col gap-10" onSubmit={(e) => e.preventDefault()}>
                         <div className="relative group max-w-md mx-auto w-full">

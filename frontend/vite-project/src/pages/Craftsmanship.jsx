@@ -29,7 +29,7 @@ const Craftsmanship = () => {
                         transition={{ duration: 1 }}
                         className="col-span-12 md:col-span-5 z-10 space-y-8"
                     >
-                        <span className="font-label text-xs tracking-[0.4em] uppercase text-primary mb-6 block font-bold">The Atelier Experience</span>
+                        <span className="font-label text-xs tracking-[0.4em] uppercase text-primary mb-6 block font-bold">The SOVRA Experience</span>
                         <h1 className="font-headline text-[clamp(3.5rem,8vw,6rem)] leading-[0.9] text-on-surface mb-10 -ml-1 italic font-light">Bespoke Creations</h1>
                         <p className="font-body text-xl text-secondary max-w-md leading-relaxed mb-12 font-light italic">
                             A collaborative journey into the heart of fine jewelry. We translate your story into an eternal artifact through the hands of master artisans.
@@ -128,7 +128,7 @@ const Craftsmanship = () => {
                             <span className="font-label text-xs tracking-[0.5em] uppercase text-primary mb-4 block font-bold">Stage One</span>
                             <h2 className="font-headline text-6xl mb-10 italic font-light text-on-surface">The Consultation</h2>
                             <p className="font-body text-xl text-secondary leading-relaxed mb-12 font-light italic">
-                                The journey begins with an intimate conversation. Whether in our Tuscan atelier or via a private digital gallery, we discuss your inspirations, the occasion, and the spirit you wish to capture.
+                                The journey begins with an intimate conversation. Whether in our Tuscan SOVRA or via a private digital gallery, we discuss your inspirations, the occasion, and the spirit you wish to capture.
                             </p>
                             
                             <div className="space-y-12">
