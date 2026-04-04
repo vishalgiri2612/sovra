@@ -21,7 +21,7 @@ const EditorialHero = () => {
                 setActiveTab(categories[nextIndex]);
                 return nextIndex;
             });
-        }, 8000); // 8-second cycle for a relaxed pace
+        }, 3000); // 3-second cycle for a more dynamic pace
 
         return () => clearInterval(interval);
     }, []);
