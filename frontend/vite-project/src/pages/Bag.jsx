@@ -7,9 +7,9 @@ const Bag = () => {
     const navigate = useNavigate();
     const { cart, removeFromCart, updateCartQty, loading } = useShop();
 
-    const subtotal = cart.reduce((acc, item) => acc + (item.product?.price * item.qty), 0)
-    const taxes = subtotal * 0.08
-    const total = subtotal + taxes
+    const subtotal = cart.reduce((acc, item) => acc + ((item.product?.price || 0) * (item.qty || 0)), 0)
+    const taxes = (subtotal || 0) * 0.08
+    const total = (subtotal || 0) + (taxes || 0)
 
     const handleUpdateQty = (id, currentQty, delta) => {
         const newQty = currentQty + delta;
@@ -58,8 +58,8 @@ const Bag = () => {
                                 <div className="flex-1 flex flex-col justify-between py-2">
                                     <div className="space-y-6">
                                         <div className="flex justify-between items-start">
-                                            <h3 className="text-3xl font-light tracking-tight italic italic">{item.product?.name}</h3>
-                                            <span className="text-xl font-light text-primary">${item.product?.price?.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                                            <h3 className="text-3xl font-light tracking-tight italic italic">{item.product?.name || 'Untitled Piece'}</h3>
+                                            <span className="text-xl font-light text-primary">${item.product?.price?.toLocaleString('en-US', { minimumFractionDigits: 2 }) || '0.00'}</span>
                                         </div>
                                         <p className="text-secondary text-base leading-relaxed max-w-sm italic opacity-85">{item.product?.description?.substring(0, 80)}...</p>
                                     </div>
@@ -113,7 +113,7 @@ const Bag = () => {
                             <div className="pt-10 border-t border-outline-variant/20">
                                 <div className="flex justify-between items-end mb-16">
                                     <span className="text-2xl font-light tracking-tight italic">Total</span>
-                                    <span className="text-4xl text-primary font-light">${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                                    <span className="text-4xl text-primary font-light">${total?.toLocaleString('en-US', { minimumFractionDigits: 2 }) || '0.00'}</span>
                                 </div>
 
                                 <button

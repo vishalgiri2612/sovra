@@ -10,11 +10,15 @@ export const ShopProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [wishlist, setWishlist] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState(null);
 
-    const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
+    // Dynamic userInfo check
+    const getUserInfo = () => localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
     useEffect(() => {
-        if (userInfo && userInfo.isVerified) {
+        const currentUser = getUserInfo();
+        if (currentUser) {
+            setUser(currentUser);
             fetchUserProfile();
         }
     }, []);
@@ -37,7 +41,8 @@ export const ShopProvider = ({ children }) => {
 
     // --- Wishlist Actions ---
     const addToWishlist = async (productId) => {
-        if (!userInfo) {
+        const currentUser = getUserInfo();
+        if (!currentUser) {
             toast.info('Please sign in to save items to your wishlist');
             return;
         }
@@ -61,7 +66,8 @@ export const ShopProvider = ({ children }) => {
 
     // --- Cart Actions ---
     const addToCart = async (productId, qty = 1) => {
-        if (!userInfo) {
+        const currentUser = getUserInfo();
+        if (!currentUser) {
             toast.info('Please sign in to shop with us');
             return;
         }
@@ -92,17 +98,25 @@ export const ShopProvider = ({ children }) => {
         }
     };
 
+    const refreshProfile = () => {
+        const currentUser = getUserInfo();
+        setUser(currentUser);
+        if (currentUser) fetchUserProfile();
+    };
+
     return (
         <ShopContext.Provider value={{
             cart,
             wishlist,
             loading,
+            user,
+            isAdmin: user?.isAdmin || false,
             addToWishlist,
             removeFromWishlist,
             addToCart,
             removeFromCart,
             updateCartQty,
-            refreshProfile: fetchUserProfile
+            refreshProfile
         }}>
             {children}
         </ShopContext.Provider>

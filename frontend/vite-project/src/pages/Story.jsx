@@ -63,7 +63,7 @@ const Story = () => {
                                 The Ethereal Curator: <br />Where ancient technique meets modern vision.
                             </h2>
                             <div className="font-body text-xl md:text-2xl leading-relaxed space-y-10 text-secondary font-light italic">
-                                <p>We do not merely create jewelry; we curate moments of light. At the heart of Sovra lies the concept of the "Ethereal Curator"—a philosophy that views every gemstone not as a product, but as a celestial fragment waiting to be released through the hands of a master.</p>
+                                <p>We do not merely create jewellery; we curate moments of light. At the heart of Sovra lies the concept of the "Ethereal Curator"—a philosophy that views every gemstone not as a product, but as a celestial fragment waiting to be released through the hands of a master.</p>
                                 <p>Our vision is born from the intersection of ancestral craftsmanship and contemporary clarity. We believe that true luxury is quiet, felt through the weight of hand-forged gold and the precision of a cut that honors the stone's natural soul.</p>
                             </div>
                         </motion.div>
@@ -81,7 +81,7 @@ const Story = () => {
                         >
                             <div className="absolute -top-16 -left-16 w-64 h-64 bg-primary/5 -z-10 rounded-full blur-3xl"></div>
                             <img
-                                alt="Parisian SOVRA"
+                                alt="SOVRA London"
                                 className="w-full aspect-[4/5] object-cover grayscale brightness-90 shadow-2xl transition-all duration-[3s] hover:grayscale-0"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUWQHZ982rZ6JgLQwdyd1woQhDp8OnmFrrktrGOVVhpAE_ePKgT_voBpiMTMKBM1Xgq4ApKuQr9lSUFaxQry6zGnPBd5h9KB28PK_wbx7ohuw6K566qHIgVt26NrjaKCgtSOyg2vIW7Hi89kCfAZ6C9CG_UEwZWlorJIHDKvVd7YplmNOdyyU7iSZo9DrOdbyWIVxLg_ps6gMuuAHkhOGjE-e8gxejdxPxAmRmnh9gto97inL_P_2pEzEZCzNBa3rKJuZmIbUx99xI"
                             />
@@ -92,7 +92,7 @@ const Story = () => {
                                 transition={{ delay: 0.5 }}
                                 className="absolute bottom-12 -right-12 p-10 bg-white/90 backdrop-blur-xl max-w-sm hidden md:block shadow-lux border border-outline-variant/5"
                             >
-                                <p className="font-headline text-[1.1rem] italic leading-relaxed text-on-surface">"In the heart of Place Vendôme, our story began with a single hammer and a vision of perfection."</p>
+                                <p className="font-headline text-[1.1rem] italic leading-relaxed text-on-surface">"In the heart of Mayfair, our story began with a single hammer and a vision of perfection."</p>
                                 <div className="mt-4 w-12 h-px bg-primary"></div>
                             </motion.div>
                         </motion.div>
@@ -100,13 +100,13 @@ const Story = () => {
                         <div className="w-full lg:w-1/2 space-y-12">
                             <div className="space-y-6">
                                 <span className="font-label uppercase tracking-[0.4em] text-[10px] text-primary font-bold">Generations of Excellence</span>
-                                <h2 className="font-headline text-6xl text-on-surface font-light italic">India, 2026</h2>
+                                <h2 className="font-headline text-6xl text-on-surface font-light italic">London, 2026</h2>
                             </div>
 
                             <div className="space-y-10 border-l border-outline-variant/20 pl-12 relative">
                                 {[
-                                    { year: '1924', title: 'The Founding', desc: 'Lucien Sovra opens his first SOVRA, blending classical French techniques with experimental aesthetics.', active: true },
-                                    { year: '1958', title: 'The Expansion', desc: 'Under Marcelle Sovra, the brand becomes a synonym for "Modern Baroque," captivating the elite of post-war Europe.', active: false },
+                                    { year: '1924', title: 'The Founding', desc: 'Lucien Sovra opens his first SOVRA, blending classical British techniques with experimental aesthetics.', active: true },
+                                    { year: '1958', title: 'The Expansion', desc: 'Under Marcelle Sovra, the brand becomes a synonym for "Modern Baroque," captivating the elite of post-war London.', active: false },
                                     { year: '2024', title: 'The New Era', desc: 'Today, led by the third generation, we continue to push the boundaries of conscious luxury and digital artistry.', active: false }
                                 ].map((item, idx) => (
                                     <motion.div
@@ -230,7 +230,7 @@ const Story = () => {
                                 <p className="font-label uppercase tracking-[0.4em] text-[10px] text-outline font-bold">Creative Director & Lead Curator</p>
                             </div>
                             <div className="font-headline text-3xl md:text-4xl leading-relaxed italic text-secondary font-light max-w-2xl border-l-[3px] border-primary/20 pl-12 py-4">
-                                "Jewelry is the most intimate form of art. It rests against the skin, absorbs the warmth of the wearer, and carries their story through time. My role is simply to ensure that story is told with the utmost grace."
+                                "Jewellery is the most intimate form of art. It rests against the skin, absorbs the warmth of the wearer, and carries their story through time. My role is simply to ensure that story is told with the utmost grace."
                             </div>
                             <Link to="/shop" className="inline-block bg-primary text-on-primary px-16 py-6 font-label uppercase tracking-[0.4em] text-xs font-bold shadow-lux hover:bg-primary-dim transition-all duration-700">
                                 Discover the Collections

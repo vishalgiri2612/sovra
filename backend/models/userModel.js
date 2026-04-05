@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   otpExpire: { type: Date },
   status: { type: String, default: 'New' }, // e.g., 'VIP', 'Regular', 'New'
   preference: { type: String, default: 'General' }, // e.g., 'High Jewelry', 'Timepieces', 'Bespoke'
+  phone: { type: String, default: '' },
   spend: { type: Number, default: 0 },
   wishlist: [
     {

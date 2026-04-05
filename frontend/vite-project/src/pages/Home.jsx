@@ -2,8 +2,22 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import EditorialHero from '../components/EditorialHero'
+import { useShop } from '../context/ShopContext'
+import { Heart } from 'lucide-react'
 
 const Home = () => {
+    const { addToWishlist, removeFromWishlist, wishlist } = useShop()
+    const isWishlisted = (id) => wishlist.some(item => item._id === id || item === id)
+
+    const toggleWishlist = (e, id) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (isWishlisted(id)) {
+            removeFromWishlist(id)
+        } else {
+            addToWishlist(id)
+        }
+    }
     useEffect(() => {
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
@@ -59,7 +73,7 @@ const Home = () => {
                         <span className="font-headline italic text-2xl text-primary mb-6 block opacity-70">The SOVRA</span>
                         <h2 className="font-headline text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] mb-8 font-light">Poetry in Metal & Stone</h2>
                         <p className="font-body text-2xl leading-relaxed text-secondary-dim font-light italic max-w-2xl">
-                            "Born from the golden silence of the Tuscan hills, SOVRA represents the intersection of ancestral craftsmanship and ethereal vision. Every piece is a whispered secret between the artisan and the earth."
+                            "Born from the golden silence of the British hills, SOVRA represents the intersection of ancestral craftsmanship and ethereal vision. Every piece is a whispered secret between the artisan and the earth."
                         </p>
                     </div>
                 </div>
@@ -132,7 +146,7 @@ const Home = () => {
                             {/* Bracelets */}
                             <div className="flex flex-col group mt-auto">
                                 <Link to="/shop/bracelets" className="relative group overflow-hidden bg-surface-container aspect-[16/9] shadow-lux-sm">
-                                    <img alt="Bracelets" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" src="/bracelets_archive.png" />
+                                    <img alt="Bracelets" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" src="/bracelet_hero.png" />
                                     <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                                 </Link>
                                 <div className="mt-4 space-y-3">
@@ -165,6 +179,18 @@ const Home = () => {
                                 <Link to="/shop" className="relative aspect-[3/4] overflow-hidden mb-8 bg-white shadow-lux-sm group-hover:shadow-lux transition-all duration-[1s]">
                                     <img alt={work.title} className="w-full h-full object-cover grayscale-[0.4] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]" src={work.image} />
                                     <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+
+                                    {/* Heart Button for Wishlist */}
+                                    <button 
+                                        onClick={(e) => toggleWishlist(e, work.id)}
+                                        className="absolute top-8 right-8 p-4 bg-white/20 backdrop-blur-md border border-white/10 rounded-full shadow-lg z-20 transition-all hover:scale-110"
+                                    >
+                                        <Heart 
+                                            size={16} 
+                                            className={`${isWishlisted(work.id) ? 'fill-red-500 text-red-500' : 'text-white/60 group-hover:text-white'}`} 
+                                            strokeWidth={2}
+                                        />
+                                    </button>
 
                                     {/* Hover Overlay Button */}
                                     <div className="absolute inset-0 flex items-center justify-center translate-y-12 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">

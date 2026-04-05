@@ -20,6 +20,7 @@ const authUser = async (req, res) => {
         isVerified: user.isVerified,
         status: user.status,
         preference: user.preference,
+        phone: user.phone,
         spend: user.spend,
         token: generateToken(user._id),
       });
@@ -169,6 +170,7 @@ const getUserProfile = async (req, res) => {
       isAdmin: user.isAdmin,
       isVerified: user.isVerified,
       status: user.status,
+      phone: user.phone,
       preference: user.preference,
       spend: user.spend,
       wishlist: user.wishlist,
@@ -189,6 +191,7 @@ const updateUserProfile = async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.preference = req.body.preference || user.preference;
+    user.phone = req.body.phone || user.phone;
     
     if (req.body.password) {
       user.password = req.body.password;
@@ -203,6 +206,7 @@ const updateUserProfile = async (req, res) => {
       isAdmin: updatedUser.isAdmin,
       isVerified: updatedUser.isVerified,
       status: updatedUser.status,
+      phone: updatedUser.phone,
       preference: updatedUser.preference,
       token: generateToken(updatedUser._id),
     });
@@ -355,6 +359,7 @@ const updateUser = async (req, res) => {
     user.isAdmin = req.body.isAdmin !== undefined ? req.body.isAdmin : user.isAdmin;
     user.status = req.body.status || user.status;
     user.preference = req.body.preference || user.preference;
+    user.phone = req.body.phone || user.phone;
     user.spend = req.body.spend || user.spend;
 
     const updatedUser = await user.save();
@@ -365,6 +370,7 @@ const updateUser = async (req, res) => {
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
       status: updatedUser.status,
+      phone: updatedUser.phone,
       preference: updatedUser.preference,
       spend: updatedUser.spend,
     });

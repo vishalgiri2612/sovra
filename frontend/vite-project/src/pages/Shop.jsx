@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useShop } from '../context/ShopContext'
+import { Search, Filter, X, ChevronDown, ArrowRight, Sparkles, Heart } from 'lucide-react'
 import api from '../utils/api'
 
 const Shop = () => {
@@ -9,6 +10,7 @@ const Shop = () => {
     const { addToWishlist, removeFromWishlist, wishlist } = useShop();
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [hoveredProduct, setHoveredProduct] = useState(null)
 
     const activeFilter = category || 'all'
 
@@ -20,12 +22,21 @@ const Shop = () => {
                 if (activeFilter === 'all') {
                     setProducts(data)
                 } else {
-                    setProducts(data.filter(p => p.category.toLowerCase() === activeFilter.toLowerCase()))
+                    setProducts(data.filter(p => p.category?.toLowerCase() === activeFilter.toLowerCase()))
                 }
             } catch (error) {
                 console.error('Fetch products failed:', error)
+                const fallback = [
+                    { _id: '1', name: 'Celestial Ring', price: 1200, category: 'rings', series: 'Archive I', img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop' },
+                    { _id: '2', name: 'Luna Necklace', price: 1800, category: 'necklaces', series: 'Celestial Body', img: 'https://images.unsplash.com/photo-1515562141207-7a88fb0ce33e?q=80&w=2070&auto=format&fit=crop' },
+                    { _id: '3', name: 'Aether Chain', price: 950, category: 'bracelets', series: 'Archive II', img: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=2070&auto=format&fit=crop' },
+                    { _id: '4', name: 'Solar Earrings', price: 1550, category: 'earrings', series: 'Nova', img: 'https://images.unsplash.com/photo-1535633302704-b02f4faad747?q=80&w=2070&auto=format&fit=crop' },
+                    { _id: '5', name: 'London Cuff', price: 2100, category: 'bracelets', series: 'Heritage', img: 'https://images.unsplash.com/photo-1611085583191-a3b136313402?q=80&w=2070&auto=format&fit=crop' },
+                    { _id: '6', name: 'Opal Horizon', price: 3200, category: 'necklaces', series: 'Archive III', img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=2070&auto=format&fit=crop' }
+                ];
+                setProducts(fallback.filter(p => activeFilter === 'all' || p.category === activeFilter))
             } finally {
-                setLoading(false)
+                setTimeout(() => setLoading(false), 800) // Aesthetic delay
             }
         }
         fetchProducts()
@@ -44,145 +55,258 @@ const Shop = () => {
     }
 
     const categories = [
-        { id: 'necklaces', name: 'Necklaces', img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWTyCO7hauxZpDW7GduM3p9lIQTJEtruSNpt1GdnyvDza8E0AwI7aL2OLIPpPDF300vmE6LBLNxGRbT1mVWogRPsNVjqwlDJ5qFy5phLlWmsNFG230imuNgQTjlXV6c0CoH0N2bU66v0ygp17QYr98ye8oxn-NhUIzr5yLiwBz4mzki1i9GrCuydqIuBCP1RmrbC-QhgEDMwsmnBn-kHw4S2iMddz7jX94VM4N_zFAmtoOOmD8xvBMz--kNCcYmhcfx2QajUdurjj_" },
-        { id: 'bracelets', name: 'Bracelets', img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCxNlot9HyqSqwqOjUX8eMAUytJ2BYf6vdJXKepbSV_dxf-u4zBLqAc4nWFKscNXSAySf7Y3gd20Jnu5KAOa5uYBcyIE56OJxOccGkWsRvAMsbbVWMxI26dIrPAFT-xNGr4uThPbemekOsRqc0zXElxRh_I0dOo3KJpw2Bm4jTz3qsCxvPaiSvURGsNhxZzOYaa_fI62vUQ9h2vX-A3Ul-CCFKTGtOHXyql17ulAAbLoJEziTZK22u3tIHuX887jXgFxzgpTbu56J5t" },
-        { id: 'rings', name: 'Rings', img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhnNEapNqvup54lBJYOPHSmTcMMPCdrMkBS6VOENzS9BpTSkEA1s-o6WiTqsCiz77M2RRsdY9K47-zLhStw6X5OnxudVYE8Lauy9hCUi5jLO8P5NWecylSkOXLzanuFVsszK19wWIdi0XitNKVwTLzlthnTl-G56XUYooQGU774Dy-SmHV_9qw8ZZ3Nku619pqZJGJ1HiMyLL7ZTVrMpYPlbpykpjq9yVpIDqYxtpnBpxCQnhK74_B7ws5VhkLbhy8du1ufoWjTUPp" }
+        { id: 'all', name: 'The Archive', subtitle: 'Our Complete Curation' },
+        { id: 'necklaces', name: 'Necklaces', subtitle: 'Celestial Silhouettes' },
+        { id: 'bracelets', name: 'Bracelets', subtitle: 'Fluid Movements' },
+        { id: 'rings', name: 'Rings', subtitle: 'Eternal Sigils' },
+        { id: 'earrings', name: 'Earrings', subtitle: 'Luminous Accents' }
     ]
 
+    const activeCategoryInfo = categories.find(c => c.id === activeFilter) || categories[0]
+
     return (
-        <div className="pt-24 pb-16 bg-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container">
-            <main className="max-w-[1920px] mx-auto px-12">
-                {/* Editorial Header */}
-                <header className="mb-16 flex flex-col md:flex-row justify-between items-end gap-10">
-                    <div className="max-w-2xl">
-                        <h1 className="font-headline text-[clamp(2.5rem,6vw,4rem)] leading-[1.1] -tracking-[0.02em] text-on-surface mb-6 capitalize italic font-light">
-                            The {activeFilter === 'all' ? 'Entire' : activeFilter} Curations
-                        </h1>
-                        <p className="font-body text-lg text-secondary leading-[1.7] font-light">
-                            An exploration of form and light. Each piece in our celestial collection is handcrafted using ethically sourced 18k gold and high-clarity gemstones in our Tuscan SOVRA.
-                        </p>
+        <div className="pt-24 bg-[#fffcf7] min-h-screen selection:bg-primary/10 overflow-hidden relative">
+            {/* Grainy Texture Overlay */}
+            <div 
+                className="fixed inset-0 opacity-[0.02] pointer-events-none z-[100]" 
+                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+            />
+
+            <main className="max-w-[1920px] mx-auto px-6 md:px-16 lg:px-32">
+                
+                {/* Immersive Hero Section */}
+                <section className="relative py-20 mb-12 border-b border-[#111110]/5 overflow-hidden">
+                    <div className="flex flex-col items-center text-center relative z-10">
+
+                        
+                        <div className="inline-flex flex-col items-center">
+                            <motion.span 
+                                key={`sub-${activeFilter}`}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="font-sans text-[10px] tracking-[0.6em] uppercase text-[#7a7670] mb-6 block font-black italic"
+                            >
+                                {activeCategoryInfo.subtitle}
+                            </motion.span>
+                            <motion.h1 
+                                key={`title-${activeFilter}`}
+                                initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+                                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                                className="font-premium text-7xl md:text-[10rem] text-[#111110] leading-[0.8] mb-12 italic font-light tracking-tighter"
+                            >
+                                {activeCategoryInfo.name.split(' ').map((word, i) => (
+                                    <span key={i} className={i % 2 === 1 ? 'not-italic font-normal' : ''}>
+                                        {word}{' '}
+                                    </span>
+                                ))}
+                            </motion.h1>
+                        </div>
+
+                        <motion.p 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="max-w-2xl font-body text-lg leading-relaxed text-[#656464] font-light italic"
+                        >
+                            Discover the intersection of celestial inspiration and British craftsmanship. Each piece is a testament to eternal elegance, forged for the discerning individual.
+                        </motion.p>
                     </div>
-                    {activeFilter !== 'all' && (
-                        <Link to="/shop" className="font-label text-[10px] uppercase tracking-[0.3em] text-on-surface border-b border-primary/40 pb-2 hover:border-primary transition-all duration-700 font-bold mb-2">
-                            Back to All Collections
-                        </Link>
-                    )}
-                </header>
 
-                <div className="flex flex-col lg:flex-row gap-12">
-                    {/* Sidebar Filter */}
-                    <aside className="w-full lg:w-72 shrink-0 space-y-12">
-                        {/* Categories List */}
-                        <div>
-                            <h3 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-8 font-bold font-bold">Categories</h3>
-                            <div className="space-y-4">
-                                {categories.map(cat => (
-                                    <Link
-                                        key={cat.id}
-                                        to={`/shop/${cat.id}`}
-                                        className={`block font-label text-[10px] uppercase tracking-widest hover:text-primary transition-colors ${activeFilter === cat.id ? 'text-primary font-black scale-105 origin-left' : 'text-secondary font-bold'}`}
-                                    >
-                                        {cat.name}
-                                    </Link>
-                                ))}
-                            </div>
+                    {/* Background Decorative Fragment */}
+                    <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.02] pointer-events-none select-none">
+                        <span className="font-premium text-[30rem] leading-none absolute top-[-5rem] right-[-5rem] italic">S.</span>
+                    </div>
+                </section>
+
+                {/* Refined Navigation & Filter Bar */}
+                <div className="sticky top-[108px] z-40 bg-[#fffcf7]/80 backdrop-blur-xl border-b border-[#111110]/5 -mx-32 px-32 mb-20">
+                    <div className="flex flex-col md:flex-row justify-between items-center py-8 gap-8">
+                        <div className="flex items-center gap-10 lg:gap-16">
+                            {categories.map((cat) => (
+                                <Link
+                                    key={cat.id}
+                                    to={cat.id === 'all' ? '/shop' : `/shop/${cat.id}`}
+                                    className={`font-sans text-[10px] tracking-[0.4em] uppercase transition-all duration-500 relative group font-black ${
+                                        activeFilter === cat.id ? 'text-[#111110]' : 'text-[#7a7670]/40 hover:text-[#111110]'
+                                    }`}
+                                >
+                                    {cat.name}
+                                    {activeFilter === cat.id && (
+                                        <motion.div 
+                                            layoutId="shopFilterLinePremium" 
+                                            className="absolute -bottom-8 left-0 w-full h-[2px] bg-primary" 
+                                        />
+                                    )}
+                                </Link>
+                            ))}
                         </div>
 
-                        <div>
-                            <h3 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-8 font-bold">Collection</h3>
-                            <div className="space-y-5">
-                                {['Celestial Body', 'Ether Essence', 'Heritage SOVRA'].map(collection => (
-                                    <label key={collection} className="flex items-center group cursor-pointer">
-                                        <input className="w-4 h-4 rounded-none border-outline-variant text-primary focus:ring-0 bg-transparent" name="collection" type="radio" />
-                                        <span className="ml-4 font-label text-xs uppercase tracking-widest text-secondary group-hover:text-primary transition-colors font-medium">{collection}</span>
-                                    </label>
-                                ))}
+                        <div className="flex items-center gap-12">
+                            <div className="hidden lg:flex items-center gap-6">
+                                <span className="font-sans text-[9px] tracking-[0.3em] uppercase text-[#7a7670] font-black">Showing {products.length} Masterworks</span>
                             </div>
-                        </div>
-                    </aside>
-
-                    {/* Product Grid Area */}
-                    <div className="flex-1">
-                        {/* Toolbar */}
-                        <div className="flex justify-between items-end mb-12 pb-6 border-b border-outline-variant/10">
-                            <span className="font-label text-[10px] uppercase tracking-[0.25em] text-outline font-bold">{products.length} Pieces Found</span>
-                            <div className="flex items-center gap-10">
-                                <button className="flex items-center gap-3 font-label text-[10px] uppercase tracking-widest text-on-surface font-bold hover:text-primary transition-colors">
-                                    Sort By: Newest
-                                    <span className="material-symbols-outlined text-sm">expand_more</span>
+                            <div className="h-5 w-[1px] bg-[#111110]/10 hidden lg:block" />
+                            <div className="flex items-center gap-8">
+                                <button className="flex items-center gap-3 font-sans text-[10px] tracking-[0.4em] uppercase text-[#111110] font-black group">
+                                     <Filter size={14} strokeWidth={1.5} />
+                                     Filter
+                                </button>
+                                <button className="flex items-center gap-3 font-sans text-[10px] tracking-[0.4em] uppercase text-[#111110] font-black group">
+                                     Sort
+                                     <ChevronDown size={14} strokeWidth={1.5} className="group-hover:translate-y-0.5 transition-transform" />
                                 </button>
                             </div>
                         </div>
-
-                        {/* Catalog Grid */}
-                        {loading ? (
-                            <div className="py-20 text-center font-headline text-2xl italic opacity-30">Revealing...</div>
-                        ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-12">
-                                <AnimatePresence mode="popLayout">
-                                    {products.map((product, idx) => (
-                                        <motion.div
-                                            key={product._id}
-                                            layout
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.8, delay: idx * 0.1 }}
-                                            className="product-card cursor-pointer group relative"
-                                        >
-                                            <Link to={`/product/${product._id}`}>
-                                                <div className="relative aspect-[4/5] overflow-hidden bg-surface-container-low mb-8 shadow-sm">
-                                                    <img
-                                                        alt={product.name}
-                                                        className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
-                                                        src={product.img || product.image || product.images?.[0] || 'https://via.placeholder.com/500'}
-                                                    />
-
-                                                    {/* Wishlist Shortcut */}
-                                                    <button
-                                                        onClick={(e) => toggleWishlist(e, product._id)}
-                                                        className="absolute top-6 right-6 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-md z-10 transition-all hover:scale-110"
-                                                    >
-                                                        <span className={`material-symbols-outlined text-lg ${isWishlisted(product._id) ? 'text-error fill-current font-variation-fill' : 'text-primary'}`}>
-                                                            {isWishlisted(product._id) ? 'favorite' : 'favorite'}
-                                                        </span>
-                                                    </button>
-
-                                                    <div className="absolute inset-0 bg-primary/5 product-veil flex items-center justify-center backdrop-blur-[2px]">
-                                                        <span className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary bg-primary px-10 py-5 shadow-2xl">The Curated View</span>
-                                                    </div>
-                                                </div>
-                                                <div className="px-2">
-                                                    <div className="flex justify-between items-baseline mb-3">
-                                                        <h2 className="font-headline text-2xl text-on-surface font-light group-hover:underline group-hover:decoration-primary/20 transition-all italic">{product.name}</h2>
-                                                        <span className="font-body text-lg text-primary font-bold italic line-through-none">${product.price?.toLocaleString()}</span>
-                                                    </div>
-                                                    <p className="font-label text-[10px] uppercase tracking-[0.2em] text-outline font-bold opacity-60">{product.series || product.category || 'Fine Jewellery'}</p>
-                                                </div>
-                                            </Link>
-                                        </motion.div>
-                                    ))}
-                                </AnimatePresence>
-                                {products.length === 0 && (
-                                    <div className="col-span-full py-32 text-center border border-dashed border-primary/10">
-                                        <p className="font-headline text-3xl italic opacity-30">Our vaults are closed for this curation.</p>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-
-                        {/* Pagination/Load More */}
-                        <div className="mt-24 flex justify-center border-t border-outline-variant/10 pt-16">
-                            <button className="font-label text-[10px] uppercase tracking-[0.3em] text-on-surface border-b border-primary/40 pb-3 hover:border-primary transition-all duration-700 font-bold">
-                                View Entire Archive
-                            </button>
-                        </div>
                     </div>
                 </div>
+
+                {/* Catalog Grid */}
+                <div className="relative pb-40">
+                    {loading ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-32 gap-x-12">
+                             {[1, 2, 3, 4, 5, 6].map((i) => (
+                                 <div key={i} className="animate-pulse space-y-10">
+                                     <div className="aspect-[4/5] bg-primary/5 rounded-sm" />
+                                     <div className="space-y-4 px-10">
+                                        <div className="h-2 w-20 bg-primary/5 mx-auto" />
+                                        <div className="h-8 w-48 bg-primary/5 mx-auto" />
+                                        <div className="h-4 w-24 bg-primary/5 mx-auto" />
+                                     </div>
+                                 </div>
+                             ))}
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-40 gap-x-16">
+                            <AnimatePresence mode="popLayout">
+                                {products.map((product, idx) => (
+                                    <motion.div
+                                        key={product._id}
+                                        initial={{ opacity: 0, y: 50 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{ duration: 1.2, delay: (idx % 3) * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                                        className="group"
+                                        onMouseEnter={() => setHoveredProduct(product._id)}
+                                        onMouseLeave={() => setHoveredProduct(null)}
+                                    >
+                                        <Link to={`/product/${product._id}`} className="block text-center px-4">
+                                            {/* Architectural Frame with Hover Interaction */}
+                                            <div className="relative aspect-[4/5] overflow-hidden bg-white mb-12 shadow-sm transition-all duration-[1.5s] group-hover:shadow-lux group-hover:-translate-y-2 rounded-sm border border-[#111110]/5 p-0.5">
+                                                <div className="w-full h-full rounded-[inherit] overflow-hidden relative">
+                                                    <img
+                                                        alt={product.name}
+                                                        className="w-full h-full object-cover transition-all duration-[3s] scale-[1.02] group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
+                                                        src={product.img || product.image}
+                                                    />
+                                                    
+                                                    {/* Glass Overlay on Hover */}
+                                                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                                                    
+                                                    {/* Floating Action Buttons */}
+                                                    <button
+                                                        onClick={(e) => toggleWishlist(e, product._id)}
+                                                        className="absolute top-10 right-10 p-5 bg-white/20 backdrop-blur-md border border-white/10 rounded-full shadow-lg z-20 transition-all hover:scale-110 group-hover:bg-white/30"
+                                                    >
+                                                        <Heart 
+                                                            size={18} 
+                                                            className={`${isWishlisted(product._id) ? 'fill-red-500 text-red-500' : 'text-white/60 group-hover:text-white'}`} 
+                                                            strokeWidth={2}
+                                                        />
+                                                    </button>
+
+                                                    {/* Quick Add / Details Label */}
+                                                    <div className="absolute inset-x-0 bottom-0 py-8 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out z-10">
+                                                        <div className="mx-auto w-fit bg-[#111110] text-[#f5f0e8] px-10 py-4 text-[9px] tracking-[0.5em] uppercase font-black shadow-2xl backdrop-blur-md">
+                                                            View Masterpiece
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Product Details with Premium Typography */}
+                                            <div className="space-y-6">
+                                                <div className="space-y-2">
+                                                    <span className="font-sans text-[8px] tracking-[0.5em] uppercase text-[#7a7670] block font-black opacity-60">
+                                                        {product.series || product.category || 'Collective'}
+                                                    </span>
+                                                    <h2 className="font-premium text-4xl text-[#111110] font-light italic leading-tight group-hover:opacity-50 transition-opacity">
+                                                        {product.name}
+                                                    </h2>
+                                                </div>
+                                                
+                                                <div className="flex items-center justify-center gap-6">
+                                                    <div className="w-10 h-[1px] bg-[#111110]/5 transition-all group-hover:w-16 duration-700" />
+                                                    <span className="font-premium text-xl text-[#373831] font-light italic">
+                                                        ${product.price?.toLocaleString()}
+                                                    </span>
+                                                    <div className="w-10 h-[1px] bg-[#111110]/5 transition-all group-hover:w-16 duration-700" />
+                                                </div>
+                                                
+                                                <div className="pt-2">
+                                                    <span className="font-sans text-[8px] tracking-[0.3em] uppercase text-primary font-black opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+                                                         Available for Acquisition
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                            
+                            {products.length === 0 && (
+                                <div className="col-span-full py-64 text-center flex flex-col items-center gap-10">
+                                    <motion.div
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                    >
+                                        <Sparkles size={64} strokeWidth={0.5} className="text-primary/20" />
+                                    </motion.div>
+                                    <p className="font-premium text-5xl italic font-light text-[#111110]/40">The vault is currently silent.</p>
+                                    <Link to="/shop" className="font-sans text-[10px] tracking-[0.6em] uppercase text-primary border-b border-primary/30 pb-4 font-black hover:tracking-[0.8em] transition-all">
+                                        Return to Source
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Bottom Utility Area */}
+                    {!loading && products.length > 0 && (
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            className="mt-32 flex flex-col items-center gap-12"
+                        >
+                            <div className="w-[1px] h-40 bg-gradient-to-b from-[#111110]/20 to-transparent" />
+                            <div className="text-center space-y-6">
+                                <p className="font-body text-sm text-[#656464] italic opacity-60">You have explored deep into the archive.</p>
+                                <button className="group flex items-center gap-12 font-sans text-[10px] tracking-[0.6em] uppercase text-[#111110] font-black group">
+                                    <span className="border-b border-[#111110]/10 group-hover:border-[#111110] pb-2 transition-all">Catalogue No. 001 - 048</span>
+                                    <ArrowRight size={14} strokeWidth={1.5} className="transition-transform group-hover:translate-x-4" />
+                                </button>
+                            </div>
+                        </motion.div>
+                    )}
+                </div>
             </main>
+            
+            {/* Architectural Grid Markers (Premium Branding) */}
+            <div className="fixed top-0 bottom-0 left-12 w-[1px] bg-[#111110]/5 pointer-events-none hidden 2xl:block" />
+            <div className="fixed top-0 bottom-0 right-12 w-[1px] bg-[#111110]/5 pointer-events-none hidden 2xl:block" />
+            
+            <div className="fixed top-1/2 left-0 -translate-y-1/2 -rotate-90 origin-left pl-20 pointer-events-none opacity-20 hidden 2xl:block">
+                <span className="font-sans text-[8px] tracking-[1em] uppercase font-black">SOVRA LONDON ARCHIVE</span>
+            </div>
+            
+            {/* Floating Decorative Elements */}
+            <div className="absolute top-[20%] left-[5%] opacity-[0.03] pointer-events-none">
+                 <svg width="400" height="400" viewBox="0 0 400 400" fill="none">
+                    <circle cx="200" cy="200" r="199" stroke="#111110" strokeWidth="1" strokeDasharray="10 10" />
+                 </svg>
+            </div>
         </div>
     )
 }
 
 export default Shop
-

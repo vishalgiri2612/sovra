@@ -31,6 +31,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const bespokeRoutes = require('./routes/bespokeRoutes');
 const materialRoutes = require('./routes/materialRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
@@ -38,6 +39,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/bespoke', bespokeRoutes);
 app.use('/api/materials', materialRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/upload', uploadRoutes);
 
 const PORT = process.env.PORT || 5000;
 

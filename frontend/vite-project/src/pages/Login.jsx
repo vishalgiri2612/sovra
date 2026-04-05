@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import api from '../utils/api';
 import { toast } from 'react-toastify';
+import { useShop } from '../context/ShopContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const { refreshProfile } = useShop();
 
     useEffect(() => {
         const userInfo = localStorage.getItem('userInfo');
@@ -25,6 +27,7 @@ const Login = () => {
             setLoading(true);
             const { data } = await api.post('/users/login', { email, password });
             localStorage.setItem('userInfo', JSON.stringify(data));
+            await refreshProfile();
             toast.success('Login successful');
             navigate('/account');
         } catch (error) {

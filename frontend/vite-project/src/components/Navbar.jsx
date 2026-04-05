@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import logo from '../assets/logo.jpg'
+import { useShop } from '../context/ShopContext'
+
 
 const Navbar = () => {
+    const { isAdmin } = useShop()
     const location = useLocation()
     const [isScrolled, setIsScrolled] = useState(false)
 
@@ -16,46 +18,68 @@ const Navbar = () => {
     }, [])
 
     const navLinks = [
-        { name: 'Collections', path: '/shop' },
-        { name: 'Fine Jewelry', path: '/shop' },
+        { name: 'Collections', path: '/collections' },
+        { name: 'Find Jewelry', path: '/shop' },
+        { name: 'Magazine', path: '/magazine' },
         { name: 'Heritage', path: '/story' }
     ]
 
     return (
         <header
-            className={`fixed top-0 w-full z-50 flex justify-center pointer-events-none transition-all duration-700 ${isScrolled ? 'pt-4 lg:pt-6 px-6' : 'pt-0 px-0'
-                }`}
+            className="fixed top-0 w-full z-50 flex justify-center pointer-events-none"
         >
             <motion.nav
                 initial={false}
                 animate={{
-                    width: isScrolled ? 'auto' : '100%',
-                    maxWidth: isScrolled ? '1100px' : '100%',
+                    width: isScrolled ? '92%' : '100%',
+                    maxWidth: isScrolled ? '1200px' : '2500px',
                     borderRadius: isScrolled ? '100px' : '0px',
+                    marginTop: isScrolled ? '1.5rem' : '0rem',
                     backgroundColor: isScrolled ? 'rgba(255, 252, 247, 0.95)' : 'rgba(255, 252, 247, 0.98)',
                     boxShadow: isScrolled ? '0 20px 40px -10px rgba(0,0,0,0.1)' : '0 0px 0px rgba(0,0,0,0)',
-                    paddingLeft: isScrolled ? '32px' : '64px',
-                    paddingRight: isScrolled ? '32px' : '64px',
-                    height: isScrolled ? '72px' : '108px',
-                    borderWidth: isScrolled ? '1px' : '0px',
-                    borderBottomWidth: isScrolled ? '1px' : '1px'
+                    paddingLeft: isScrolled ? '48px' : '80px',
+                    paddingRight: isScrolled ? '48px' : '80px',
+                    height: isScrolled ? '76px' : '108px',
+                    borderWidth: '1px',
+                    borderColor: isScrolled ? 'rgba(110, 91, 68, 0.1)' : 'rgba(110, 91, 68, 0.05)'
                 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 28 }}
+                transition={{
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1]
+                }}
                 className={`pointer-events-auto flex items-center justify-between backdrop-blur-xl border-primary/5 font-body border-b-primary/10`}
             >
                 {/* Left Logo */}
                 <div className="flex-initial flex items-center pr-8">
                     <Link to="/" className="flex items-center group">
-                        <img
-                            src={logo}
+                        <motion.img
+                            initial={false}
+                            animate={{
+                                height: isScrolled ? 56 : 96 // h-14 (56px) and h-24 (96px)
+                            }}
+                            transition={{
+                                duration: 0.8,
+                                ease: [0.22, 1, 0.36, 1]
+                            }}
+                            src="/logo.jpg"
                             alt="SOVRA"
-                            className={`transition-all duration-700 mix-blend-multiply dark:invert ${isScrolled ? 'h-14' : 'h-24'} w-auto`}
+                            className="mix-blend-multiply w-auto"
                         />
                     </Link>
                 </div>
 
                 {/* Center Links */}
-                <div className={`flex-auto hidden md:flex items-center justify-center gap-6 lg:gap-8 font-headline tracking-tight transition-all duration-700 ${isScrolled ? 'text-[15px]' : 'text-lg'}`}>
+                <motion.div
+                    initial={false}
+                    animate={{
+                        fontSize: isScrolled ? '15px' : '18px'
+                    }}
+                    transition={{
+                        duration: 0.8,
+                        ease: [0.22, 1, 0.36, 1]
+                    }}
+                    className="flex-auto hidden md:flex items-center justify-center gap-6 lg:gap-8 font-headline tracking-tight"
+                >
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
@@ -75,15 +99,49 @@ const Navbar = () => {
                             )}
                         </Link>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Right Utilities */}
                 <div className={`flex-initial flex justify-end items-center text-[#6e5b44] ${isScrolled ? 'pl-10' : 'pl-0'}`}>
                     <div className="flex items-center gap-6">
-                        <Link to="/admin" className={`material-symbols-outlined transition-all duration-700 hover:opacity-70 hover:scale-110 ${isScrolled ? 'text-[20px]' : 'text-2xl'}`} title="Admin Control">settings</Link>
-                        <Link to="/account" className={`material-symbols-outlined transition-all duration-700 hover:opacity-70 hover:scale-110 ${isScrolled ? 'text-[20px]' : 'text-2xl'}`}>person</Link>
-                        <Link to="/bag" className={`material-symbols-outlined transition-all duration-700 hover:opacity-70 relative hover:scale-110 ${isScrolled ? 'text-[20px]' : 'text-2xl'}`}>
-                            shopping_bag
+                        {isAdmin && (
+                            <Link to="/admin" className="material-symbols-outlined hover:opacity-70 transition-all hover:scale-110" title="Admin Control">
+                                <motion.span
+                                    initial={false}
+                                    animate={{ fontSize: isScrolled ? '20px' : '24px' }}
+                                    transition={{
+                                        duration: 0.8,
+                                        ease: [0.22, 1, 0.36, 1]
+                                    }}
+                                >
+                                    settings
+                                </motion.span>
+                            </Link>
+                        )}
+                        <Link to="/account" className="material-symbols-outlined hover:opacity-70 transition-all hover:scale-110">
+                            <motion.span
+                                initial={false}
+                                animate={{ fontSize: isScrolled ? '20px' : '24px' }}
+                                transition={{
+                                    duration: 0.8,
+                                    ease: [0.22, 1, 0.36, 1]
+                                }}
+                            >
+                                person
+                            </motion.span>
+                        </Link>
+                        <Link to="/bag" className="material-symbols-outlined hover:opacity-70 transition-all relative hover:scale-110">
+                            <motion.span
+                                initial={false}
+                                animate={{ fontSize: isScrolled ? '20px' : '24px' }}
+                                transition={{
+                                    duration: 0.8,
+                                    ease: [0.22, 1, 0.36, 1]
+                                }}
+                                className="block"
+                            >
+                                shopping_bag
+                            </motion.span>
                             <span className="absolute -top-1.5 -right-1.5 text-[8px] bg-primary text-on-primary rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold shadow-sm">2</span>
                         </Link>
                     </div>

@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import api from '../utils/api';
 import { toast } from 'react-toastify';
+import { useShop } from '../context/ShopContext';
 
 const OTPVerification = () => {
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
     const [loading, setLoading] = useState(false);
     const [resending, setResending] = useState(false);
     const navigate = useNavigate();
+    const { refreshProfile } = useShop();
 
     const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
@@ -48,6 +50,7 @@ const OTPVerification = () => {
             localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
             
             toast.success(data.message);
+            await refreshProfile();
             navigate('/account');
         } catch (error) {
             toast.error(error.response?.data?.message || 'Verification failed');
