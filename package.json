@@ -1,0 +1,14 @@
+{
+  "name": "sovra-master",
+  "version": "1.0.0",
+  "description": "Unified SOVRA ATELIER repository",
+  "private": true,
+  "workspaces": [
+    "frontend/vite-project",
+    "backend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=frontend/vite-project",
+    "dev": "npm run dev --workspace=frontend/vite-project"
+  }
+}
