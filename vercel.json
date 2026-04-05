@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build --workspace=frontend/vite-project",
-  "outputDirectory": "frontend/vite-project/dist",
+  "buildCommand": "npm run build --workspace=frontend",
+  "outputDirectory": "frontend/dist",
   "framework": "vite"
 }

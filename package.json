@@ -4,11 +4,11 @@
   "description": "Unified SOVRA ATELIER repository",
   "private": true,
   "workspaces": [
-    "frontend/vite-project",
+    "frontend",
     "backend"
   ],
   "scripts": {
-    "build": "npm run build --workspace=frontend/vite-project",
-    "dev": "npm run dev --workspace=frontend/vite-project"
+    "build": "npm run build --workspace=frontend",
+    "dev": "npm run dev --workspace=frontend"
   }
 }
