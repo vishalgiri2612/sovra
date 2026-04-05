@@ -1,49 +1,104 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { toast } from 'react-toastify'
+import api from '../utils/api'
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState('dashboard')
     const [orderSearch, setOrderSearch] = useState('')
     const [orderFilter, setOrderFilter] = useState('All')
+    const [loading, setLoading] = useState(true)
 
-    // Mock Data for Admin
-    const [products] = useState([
-        { id: 1, name: "The Solaris Pendant", category: "Necklaces", price: 4850, stock: 12, material: "18k Gold", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWTyCO7hauxZpDW7GduM3p9lIQTJEtruSNpt1GdnyvDza8E0AwI7aL2OLIPpPDF300vmE6LBLNxGRbT1mVWogRPsNVjqwlDJ5qFy5phLlWmsNFG230imuNgQTjlXV6c0CoH0N2bU66v0ygp17QYr98ye8oxn-NhUIzr5yLiwBz4mzki1i9GrCuydqIuBCP1RmrbC-QhgEDMwsmnBn-kHw4S2iMddz7jX94VM4N_zFAmtoOOmD8xvBMz--kNCcYmhcfx2QajUdurjj_" },
-        { id: 2, name: "Emerald Cascade", category: "Necklaces", price: 3200, stock: 8, material: "White Gold", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC0AUXF-HX4HK5W5VZioXOD1qvrt3XNpXG_32W2ZP8NcEufQUvz36o1Q3zHaJd_MLzyllqb4TBxYc3f56q9Zy2holbowDNard_lk01Yl10fU0TBNb9tEGUd8b5wXtur-MkWCPpsldTMk5f6xXlh7ZerK-HMap3YbBOmsyuQ5YjCJHg8429UYrPiZUBIJcdPeT9udo7HGVkIZjr_XxpJCwzjqjY-G1d_clsZoI1CsRYUr9loFcjd1dxs1-w25vcGoY9bxwiMEdI-LMkC" },
-        { id: 6, name: "Ethereal Solitaire Ring", category: "Rings", price: 2450, stock: 24, material: "Yellow Gold", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhnNEapNqvup54lBJYOPHSmTcMMPCdrMkBS6VOENzS9BpTSkEA1s-o6WiTqsCiz77M2RRsdY9K47-zLhStw6X5OnxudVYE8Lauy9hCUi5jLO8P5NWecylSkOXLzanuFVsszK19wWIdi0XitNKVwTLzlthnTl-G56XUYooQGU774Dy-SmHV_9qw8ZZ3Nku619pqZJGJ1HiMyLL7ZTVrMpYPlbpykpjq9yVpIDqYxtpnBpxCQnhK74_B7ws5VhkLbhy8du1ufoWjTUPp" }
-    ])
+    // Real Data States
+    const [stats, setStats] = useState({
+        totalRevenue: '₹0',
+        totalOrders: 0,
+        activeBespoke: 0,
+        criticalMaterials: 0,
+        totalUsers: 0
+    })
+    const [products, setProducts] = useState([])
+    const [orders, setOrders] = useState([])
+    const [materials, setMaterials] = useState([])
+    const [customers, setCustomers] = useState([])
+    const [bespokeRequests, setBespokeRequests] = useState([])
+    const [revenueData, setRevenueData] = useState([])
 
+<<<<<<< HEAD:frontend/vite-project/frontend/vite-project/src/pages/Admin.jsx
     const [orders] = useState([
         { id: "#ORD-88291", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Ethereal Band", total: "$1,250", status: "Delivered", date: "Oct 14, 2023" },
         { id: "#ORD-88104", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Celestial Drop Earrings", total: "$890", status: "Shipped", date: "Nov 02, 2023" },
         { id: "#ORD-88542", customer: "Mark Sterling", email: "mark.s@finance.com", items: "L'Aube Pendant", total: "$4,200", status: "Pending", date: "Dec 12, 2023" },
         { id: "#ORD-88901", customer: "Elena Rossi", email: "elena@SOVRA.it", items: "Solitude Ring", total: "$2,450", status: "Processing", date: "Jan 05, 2024" }
     ])
+=======
+    // Data Fetching Central
+    useEffect(() => {
+        const fetchAdminData = async () => {
+            try {
+                setLoading(true)
+                const [statsRes, productsRes, ordersRes, materialsRes, usersRes, revenueRes, bespokeRes] = await Promise.all([
+                    api.get('/analytics/stats'),
+                    api.get('/products'),
+                    api.get('/orders'),
+                    api.get('/materials'),
+                    api.get('/users'),
+                    api.get('/analytics/revenue'),
+                    api.get('/bespoke')
+                ])
+>>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799:src/pages/Admin.jsx
 
-    const [rawMaterials] = useState([
-        { id: 1, name: "24k Gold Grain", type: "Metal", amount: "450g", status: "Stable", threshold: "100g" },
-        { id: 2, name: "VVS Diamonds (1ct)", type: "Gem", amount: "14 units", status: "Low Stock", threshold: "20 units" },
-        { id: 3, name: "925 Sterling Silver", type: "Metal", amount: "2.5kg", status: "Stable", threshold: "500g" },
-        { id: 4, name: "Royal Blue Sapphires", type: "Gem", amount: "3 units", status: "Critical", threshold: "10 units" }
-    ])
+                setStats(statsRes.data)
+                setProducts(productsRes.data)
+                setOrders(ordersRes.data)
+                setMaterials(materialsRes.data)
+                setCustomers(usersRes.data)
+                setBespokeRequests(bespokeRes.data)
+                
+                // Map revenue data for the chart
+                const fullYear = Array.from({ length: 12 }, (_, i) => ({ month: i + 1, revenue: 0 }))
+                revenueRes.data.forEach(item => {
+                    const index = fullYear.findIndex(f => f.month === item._id)
+                    if (index !== -1) fullYear[index].revenue = item.revenue
+                })
+                setRevenueData(fullYear)
 
+<<<<<<< HEAD:frontend/vite-project/frontend/vite-project/src/pages/Admin.jsx
     const [customers] = useState([
         { id: 1, name: "Julianne Vora", email: "j.vora@luxury.com", orders: 12, spend: "$45,200", preference: "High Jewelry", status: "VIP" },
         { id: 2, name: "Mark Sterling", email: "mark.s@finance.com", orders: 4, spend: "$12,800", preference: "Timepieces", status: "Regular" },
         { id: 3, name: "Elena Rossi", email: "elena@SOVRA.it", orders: 1, spend: "$8,500", preference: "Bespoke", status: "New" }
     ])
+=======
+            } catch (error) {
+                console.error('Fetch admin data failed:', error)
+                toast.error('SOVRA archives are temporarily unreachable.')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchAdminData()
+    }, [activeTab])
+>>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799:src/pages/Admin.jsx
 
-    const [bespokeRequests] = useState([
-        { id: "#BSQ-001", client: "Elena Rossi", concept: "Heirloom Reset", budget: "$15,000+", deadline: "June 2024", status: "Consultation" },
-        { id: "#BSQ-002", client: "Julianne Vora", concept: "Celestial Tiara", budget: "Undisclosed", deadline: "Sept 2024", status: "Design Phase" }
-    ])
-
-    const stats = [
-        { label: "Total Revenue", value: "$428,290", icon: "payments", trend: "+12.5%" },
-        { label: "Total Orders", value: "842", icon: "order_approve", trend: "+4.2%" },
-        { label: "Active Bespoke", value: "8 Projects", icon: "diamond", trend: "High Value" },
-        { label: "Material Alerts", value: "2 Critical", icon: "warning", trend: "Action Required" }
-    ]
+    const handleUpdateOrderStatus = async (id, status) => {
+        try {
+            if (status === 'Delivered') {
+                await api.put(`/orders/${id}/deliver`)
+            } else if (status === 'Processing') {
+                await api.put(`/orders/${id}/pay`) // Simplified
+            } else {
+                toast.warn('Status transition not yet artisanal.')
+                return;
+            }
+            toast.success('Ledger updated.');
+            // Refresh orders
+            const { data } = await api.get('/orders')
+            setOrders(data)
+        } catch (error) {
+            toast.error('Update failed.')
+        }
+    }
 
     const handleAction = (label) => {
         alert(`${label} simulation initiated.`);
@@ -52,7 +107,12 @@ const Admin = () => {
     const renderDashboard = () => (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-20">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-                {stats.map((stat) => (
+                {[
+                    { label: "Total Revenue", value: stats.totalRevenue, icon: "payments", trend: "+12.5%" },
+                    { label: "Total Orders", value: stats.totalOrders, icon: "order_approve", trend: "+4.2%" },
+                    { label: "Active Clients", value: stats.totalUsers, icon: "diamond", trend: "High Value" },
+                    { label: "Material Alerts", value: `${stats.criticalMaterials} Critical`, icon: "warning", trend: "Action Required" }
+                ].map((stat) => (
                     <div key={stat.label} className="bg-surface-container-low p-12 shadow-sm border border-outline-variant/10 group hover:border-primary/40 transition-all duration-700">
                         <div className="flex justify-between items-start mb-8">
                             <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">{stat.icon}</span>
@@ -67,19 +127,23 @@ const Admin = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
                 <div className="lg:col-span-8 bg-surface-container-low p-16 border border-outline-variant/10 shadow-sm">
                     <h2 className="font-headline text-3xl italic mb-12 border-b border-black/5 pb-6">Revenue Performance</h2>
-                    <div className="h-80 flex items-end gap-4 px-6">
-                        {[40, 70, 45, 90, 65, 80, 100, 55, 85, 60, 75, 95].map((h, i) => (
-                            <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h}%` }} transition={{ delay: i * 0.05, duration: 1 }} className="flex-1 bg-primary/20 hover:bg-primary transition-colors cursor-help group relative">
-                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label text-[10px] font-black">${(h * 100).toLocaleString()}</span>
-                            </motion.div>
-                        ))}
+                    <div className="h-80 flex items-end gap-1 px-6">
+                        {revenueData.map((item, i) => {
+                            const maxHeight = Math.max(...revenueData.map(d => d.revenue)) || 1
+                            const hRatio = (item.revenue / maxHeight) * 100
+                            return (
+                                <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${hRatio || 2}%` }} transition={{ delay: i * 0.05, duration: 1 }} className="flex-1 bg-primary/20 hover:bg-primary transition-colors cursor-help group relative">
+                                    <span className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label text-[10px] font-black">${item.revenue.toLocaleString()}</span>
+                                </motion.div>
+                            )
+                        })}
                     </div>
                 </div>
                 <div className="lg:col-span-4 bg-surface-container-low p-16 border border-outline-variant/10 shadow-sm">
                     <h2 className="font-headline text-3xl italic mb-12 border-b border-black/5 pb-6">Urgent Alerts</h2>
                     <div className="space-y-8">
-                        {rawMaterials.filter(m => m.status !== 'Stable').map(m => (
-                            <div key={m.id} className="flex items-center gap-6 p-6 bg-primary/5 border border-primary/10 transition-transform hover:translate-x-2 duration-500">
+                        {materials.filter(m => m.status !== 'Stable').slice(0, 4).map(m => (
+                            <div key={m._id} className="flex items-center gap-6 p-6 bg-primary/5 border border-primary/10 transition-transform hover:translate-x-2 duration-500">
                                 <span className="material-symbols-outlined text-primary text-2xl">priority_high</span>
                                 <div>
                                     <p className="font-label text-[10px] uppercase font-black tracking-widest">{m.name}</p>
@@ -88,6 +152,9 @@ const Admin = () => {
                                 </div>
                             </div>
                         ))}
+                        {materials.filter(m => m.status !== 'Stable').length === 0 && (
+                            <p className="font-body text-sm opacity-40 italic">All treasures are secure.</p>
+                        )}
                     </div>
                 </div>
             </div>
@@ -105,8 +172,8 @@ const Admin = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                {rawMaterials.map(m => (
-                    <div key={m.id} className={`p-10 border ${m.status === 'Critical' ? 'border-primary bg-primary/5' : 'border-outline-variant/10'} shadow-sm transition-all hover:shadow-lux`}>
+                {materials.map(m => (
+                    <div key={m._id} className={`p-10 border ${m.status === 'Critical' ? 'border-primary bg-primary/5' : 'border-outline-variant/10'} shadow-sm transition-all hover:shadow-lux`}>
                         <div className="flex justify-between mb-8">
                             <span className="font-label text-[10px] uppercase tracking-[0.2em] font-black opacity-40">{m.type}</span>
                             <span className={`w-3 h-3 rounded-full ${m.status === 'Critical' ? 'bg-red-500 animate-ping' : m.status === 'Low Stock' ? 'bg-amber-500' : 'bg-green-500'}`} />
@@ -129,17 +196,17 @@ const Admin = () => {
                 <h3 className="font-label text-[11px] tracking-[0.5em] uppercase font-black text-primary italic border-b border-primary/10 pb-6">SOVRA Client Registry</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                     {customers.map(c => (
-                        <div key={c.id} className="bg-surface-container-low p-12 border border-outline-variant/10 group hover:border-primary/30 transition-all hover:shadow-lux">
+                        <div key={c._id} className="bg-surface-container-low p-12 border border-outline-variant/10 group hover:border-primary/30 transition-all hover:shadow-lux">
                             <div className="flex justify-between mb-8">
                                 <span className={`px-4 py-2 text-[8px] uppercase tracking-[0.25em] font-black ${c.status === 'VIP' ? 'bg-primary text-on-primary' : 'bg-outline-variant/10'}`}>{c.status}</span>
-                                <span className="font-label text-[10px] font-black opacity-40">ClientID #{c.id}</span>
+                                <span className="font-label text-[10px] font-black opacity-40">ClientID #{c._id.slice(-6)}</span>
                             </div>
                             <h4 className="font-headline text-3xl italic font-light group-hover:text-primary transition-colors mb-2">{c.name}</h4>
                             <p className="font-body text-[12px] opacity-60 mb-12 italic">{c.email}</p>
                             <div className="grid grid-cols-2 gap-8 border-t border-black/5 pt-8">
                                 <div>
                                     <p className="font-label text-[9px] uppercase opacity-40 font-black tracking-widest">Total Spent</p>
-                                    <p className="font-headline text-xl italic mt-2">{c.spend}</p>
+                                    <p className="font-headline text-xl italic mt-2">₹{c.spend?.toLocaleString() || 0}</p>
                                 </div>
                                 <div>
                                     <p className="font-label text-[9px] uppercase opacity-40 font-black tracking-widest">Preference</p>
@@ -158,16 +225,20 @@ const Admin = () => {
                 </div>
                 <div className="space-y-8">
                     {bespokeRequests.map(r => (
-                        <div key={r.id} className="bg-white/40 dark:bg-black/20 p-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 group hover:bg-white/60 transition-all">
+                        <div key={r._id} className="bg-white/40 dark:bg-black/20 p-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 group hover:bg-white/60 transition-all">
                             <div>
-                                <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">{r.id}</p>
+                                <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">Req #{r._id.slice(-6)}</p>
                                 <h4 className="font-headline text-2xl italic group-hover:translate-x-2 transition-transform">{r.concept}</h4>
+<<<<<<< HEAD:frontend/vite-project/frontend/vite-project/src/pages/Admin.jsx
                                 <p className="font-body text-[12px] opacity-60 font-black mt-2">SOVRA Client: {r.client} • Target Deadline: {r.deadline}</p>
+=======
+                                <p className="font-body text-[12px] opacity-60 font-black mt-2">SOVRA Client: {r.clientName || r.client?.name} • Target Deadline: {r.deadline}</p>
+>>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799:src/pages/Admin.jsx
                             </div>
                             <div className="flex flex-wrap items-center gap-12 w-full lg:w-auto">
                                 <div className="text-right">
                                     <p className="font-label text-[9px] uppercase opacity-40 font-black tracking-widest">Target Budget</p>
-                                    <p className="font-body text-sm font-black mt-1">{r.budget}</p>
+                                    <p className="font-body text-sm font-black mt-1">₹{r.budget}</p>
                                 </div>
                                 <span className="px-8 py-4 border border-primary/20 text-primary font-label text-[10px] uppercase tracking-[0.25em] font-black">{r.status}</span>
                                 <button onClick={() => handleAction('Open Design File')} className="material-symbols-outlined text-outline hover:text-primary transition-all hover:scale-125">palette</button>
@@ -196,13 +267,13 @@ const Admin = () => {
             {/* Packaging Lab Throughput Metrics */}
             <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-8">
                 {[
-                    { label: "Total Users", value: "7" },
-                    { label: "Total Orders", value: "8" },
-                    { label: "Gross Rev", value: "₹9,142.5" },
-                    { label: "Cart/Wish", value: "1" },
-                    { label: "Items Sold", value: "420" },
-                    { label: "Discounts", value: "₹0" },
-                    { label: "Avg Order", value: "₹1,142.81" }
+                    { label: "Total Users", value: stats.totalUsers },
+                    { label: "Total Orders", value: stats.totalOrders },
+                    { label: "Gross Rev", value: stats.totalRevenue },
+                    { label: "Active Bespoke", value: stats.activeBespoke },
+                    { label: "Critical Mtl", value: stats.criticalMaterials },
+                    { label: "Avg Spend", value: `₹${(parseFloat(stats.totalRevenue?.replace(/[^0-9.]/g, '') || 0) / (stats.totalOrders || 1)).toFixed(2)}` },
+                    { label: "Fulfillment", value: "98.4%" }
                 ].map((kpi) => (
                     <div key={kpi.label} className="bg-surface-container-low p-10 border border-outline-variant/10 shadow-sm text-center group hover:bg-primary transition-all duration-700">
                         <p className="font-label text-[9px] uppercase tracking-[0.2em] font-black opacity-40 mb-4 group-hover:text-on-primary group-hover:opacity-100">{kpi.label}</p>
@@ -343,21 +414,21 @@ const Admin = () => {
     )
 
     const filteredOrders = orders.filter(o => {
-        const matchesSearch = o.id.toLowerCase().includes(orderSearch.toLowerCase()) || 
-                             o.customer.toLowerCase().includes(orderSearch.toLowerCase()) ||
-                             o.email.toLowerCase().includes(orderSearch.toLowerCase());
+        const matchesSearch = o._id.toLowerCase().includes(orderSearch.toLowerCase()) ||
+            o.user?.name?.toLowerCase().includes(orderSearch.toLowerCase()) ||
+            o.user?.email?.toLowerCase().includes(orderSearch.toLowerCase());
         const matchesFilter = orderFilter === 'All' || o.status === orderFilter;
         return matchesSearch && matchesFilter;
     })
 
     return (
         <div className="pt-24 pb-32 px-8 md:px-16 lg:px-24 max-w-[1920px] mx-auto min-h-screen selection:bg-primary-container selection:text-on-primary-container bg-[#fffcf7]">
-            <header className="mb-24 flex flex-col xl:flex-row justify-between items-center border-b border-outline-variant/10 pb-16 gap-16">
-                <div className="space-y-6 text-center xl:text-left">
-                    <h1 className="font-headline text-7xl md:text-[9rem] leading-[0.85] italic font-light tracking-tighter transition-all opacity-85">Admin Control</h1>
-                    <div className="flex items-center justify-center xl:justify-start gap-6 text-primary">
-                        <span className="material-symbols-outlined animate-pulse text-3xl">lock</span>
-                        <p className="font-label text-[11px] uppercase tracking-[0.6em] font-black opacity-40 italic font-bold">Secure Administrator Node</p>
+            <header className="mb-12 flex flex-col xl:flex-row justify-between items-center border-b border-outline-variant/10 pb-8 gap-8">
+                <div className="space-y-4 text-center xl:text-left">
+                    <h1 className="font-headline text-5xl md:text-7xl leading-[0.85] italic font-light tracking-tighter transition-all opacity-85">Admin Control</h1>
+                    <div className="flex items-center justify-center xl:justify-start gap-4 text-primary">
+                        <span className="material-symbols-outlined animate-pulse text-2xl">lock</span>
+                        <p className="font-label text-[10px] uppercase tracking-[0.6em] font-black opacity-40 italic font-bold">Secure Administrator Node</p>
                     </div>
                 </div>
 
@@ -371,7 +442,7 @@ const Admin = () => {
                         { id: 'analytics', name: 'Insights', icon: 'query_stats' },
                         { id: 'cms', name: 'Studio', icon: 'auto_fix_high' }
                     ].map((tab) => (
-                        <button 
+                        <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-4 px-8 md:px-10 py-6 transition-all duration-700 group ${activeTab === tab.id ? 'bg-primary text-on-primary shadow-lux scale-[1.05] z-10' : 'text-secondary hover:text-primary hover:bg-black/5'}`}
@@ -384,7 +455,13 @@ const Admin = () => {
             </header>
 
             <main className="max-w-[1720px] mx-auto">
-                <AnimatePresence mode="wait">
+                {loading ? (
+                    <div className="py-32 text-center opacity-40">
+                        <p className="font-headline text-8xl transition-all animate-pulse">...</p>
+                        <p className="font-label text-[14px] uppercase tracking-[0.4em] font-black italic mt-8">Consulting the Ledger</p>
+                    </div>
+                ) : (
+                    <AnimatePresence mode="wait">
                     {activeTab === 'dashboard' && renderDashboard()}
                     {activeTab === 'inventory' && renderInventory()}
                     {activeTab === 'customers' && renderCustomers()}
@@ -412,17 +489,17 @@ const Admin = () => {
                                     </thead>
                                     <tbody className="divide-y divide-black/5">
                                         {products.map(p => (
-                                            <tr key={p.id} className="group hover:bg-surface-container/50 transition-all duration-700">
+                                            <tr key={p._id} className="group hover:bg-surface-container/50 transition-all duration-700">
                                                 <td className="py-12 pl-6 flex items-center gap-8">
                                                     <div className="w-24 h-24 bg-surface-container overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000 shadow-sm border border-black/5">
-                                                        <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
+                                                        <img src={p.img || p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
                                                     </div>
                                                     <h3 className="font-headline text-2xl italic group-hover:text-primary transition-colors underline decoration-transparent group-hover:decoration-primary/30 underline-offset-8">{p.name}</h3>
                                                 </td>
                                                 <td className="py-12 px-6 font-label text-[10px] uppercase font-black opacity-60 italic">{p.category}</td>
-                                                <td className="py-12 px-6 font-label text-[10px] uppercase font-black opacity-40">{p.material}</td>
-                                                <td className="py-12 px-6 text-right font-headline text-2xl font-light">${p.price.toLocaleString()}</td>
-                                                <td className="py-12 pr-6 text-right font-label text-[11px] font-black tracking-widest">{p.stock} Units</td>
+                                                <td className="py-12 px-6 font-label text-[10px] uppercase font-black opacity-40">{p.material || 'Fine Metal'}</td>
+                                                <td className="py-12 px-6 text-right font-headline text-2xl font-light">₹{p.price.toLocaleString()}</td>
+                                                <td className="py-12 pr-6 text-right font-label text-[11px] font-black tracking-widest">{p.stock || p.countInStock} Units</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -435,9 +512,9 @@ const Admin = () => {
                             <div className="border-b border-outline-variant/10 pb-12 flex flex-col md:flex-row justify-between items-baseline gap-12">
                                 <h2 className="font-headline text-6xl italic font-light tracking-tight">Active Shipments</h2>
                                 <div className="flex-1 w-full max-w-2xl">
-                                    <input 
-                                        type="text" 
-                                        placeholder="Search by Order ID, Name or Email..." 
+                                    <input
+                                        type="text"
+                                        placeholder="Search by Order ID, Name or Email..."
                                         value={orderSearch}
                                         onChange={(e) => setOrderSearch(e.target.value)}
                                         className="w-full bg-surface-container-low border border-outline-variant/20 p-6 font-body text-sm focus:ring-1 focus:ring-primary outline-none italic tracking-wide"
@@ -447,7 +524,7 @@ const Admin = () => {
 
                             <div className="flex flex-wrap gap-4 border-b border-outline-variant/5 pb-12">
                                 {['All', 'Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map(status => (
-                                    <button 
+                                    <button
                                         key={status}
                                         onClick={() => setOrderFilter(status)}
                                         className={`px-10 py-4 font-label text-[10px] uppercase tracking-[0.3em] font-black transition-all ${orderFilter === status ? 'bg-primary text-on-primary shadow-lux' : 'bg-surface-container-low text-secondary hover:text-primary'}`}
@@ -459,19 +536,31 @@ const Admin = () => {
 
                             <div className="space-y-8">
                                 {filteredOrders.length > 0 ? filteredOrders.map(o => (
-                                    <motion.div layout key={o.id} className="bg-surface-container-low p-12 border border-outline-variant/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10 group hover:shadow-lux transition-all duration-700">
+                                    <motion.div layout key={o._id} className="bg-surface-container-low p-12 border border-outline-variant/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10 group hover:shadow-lux transition-all duration-700">
                                         <div className="space-y-2">
-                                            <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">{o.id}</p>
-                                            <h3 className="font-headline text-3xl italic font-light group-hover:text-primary transition-colors">{o.customer}</h3>
-                                            <p className="font-label text-[11px] uppercase tracking-[0.2em] opacity-40 font-black italic">{o.items} • {o.date}</p>
-                                            <p className="font-body text-[11px] opacity-30 mt-3 font-medium">{o.email}</p>
+                                            <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">Order #{o._id.slice(-6)}</p>
+                                            <h3 className="font-headline text-3xl italic font-light group-hover:text-primary transition-colors">{o.user?.name || 'Guest Member'}</h3>
+                                            <p className="font-label text-[11px] uppercase tracking-[0.2em] opacity-40 font-black italic">
+                                                {o.orderItems?.length || 0} Pieces • {new Date(o.createdAt).toLocaleDateString()}
+                                            </p>
+                                            <p className="font-body text-[11px] opacity-30 mt-3 font-medium">{o.user?.email}</p>
                                         </div>
                                         <div className="flex items-center gap-20 w-full md:w-auto">
                                             <div className="text-right">
                                                 <p className="font-label text-[10px] uppercase opacity-40 font-black tracking-widest">Grand Total</p>
-                                                <p className="font-headline text-3xl font-light mt-2">{o.total}</p>
+                                                <p className="font-headline text-3xl font-light mt-2">₹{o.totalPrice.toLocaleString()}</p>
                                             </div>
-                                            <span className={`px-8 py-4 border border-primary/20 text-primary font-label text-[10px] uppercase tracking-[0.3em] font-black italic min-w-[140px] text-center ${o.status === 'Cancelled' ? 'border-red-200 text-red-500' : ''}`}>{o.status}</span>
+                                            <select 
+                                                value={o.status}
+                                                onChange={(e) => handleUpdateOrderStatus(o._id, e.target.value)}
+                                                className={`px-8 py-4 border border-primary/20 text-primary font-label text-[10px] uppercase tracking-[0.3em] font-black italic min-w-[160px] text-center bg-transparent cursor-pointer hover:bg-primary/5 transition-all outline-none ${o.status === 'Cancelled' ? 'border-red-200 text-red-500' : ''}`}
+                                            >
+                                                <option value="Pending">Pending</option>
+                                                <option value="Processing">Processing</option>
+                                                <option value="Shipped">Shipped</option>
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                            </select>
                                         </div>
                                     </motion.div>
                                 )) : (
@@ -483,7 +572,8 @@ const Admin = () => {
                             </div>
                         </motion.div>
                     )}
-                </AnimatePresence>
+                    </AnimatePresence>
+                )}
             </main>
         </div>
     )
