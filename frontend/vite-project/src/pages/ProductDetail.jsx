@@ -187,54 +187,7 @@ const ProductDetail = () => {
                                     <span className="px-8 font-sans font-black text-xs">{quantity}</span>
                                     <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:opacity-50 transition-opacity"><Plus size={14}/></button>
                                 </div>
-<<<<<<< HEAD
                                 <span className="font-sans text-[9px] tracking-widest uppercase text-[#7a7670] font-black">Limited Edition Piece</span>
-=======
-                            </details>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Contextual Storytelling */}
-            <section className="mt-24 bg-surface-container py-24">
-                <div className="max-w-[1440px] mx-auto px-12 grid grid-cols-1 md:grid-cols-2 items-center gap-24">
-                    <div className="relative aspect-[3/4] md:aspect-square overflow-hidden order-2 md:order-1 shadow-2xl">
-                        <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD_3vYzTSUzuo5mHJrNeJKsIP4I93tf_41jHOFETESLnYU8a1ZdjDoryCSfIaXhOorR0SetoU4A--KkbRPNG7Ob97i_Bfa3gxqvfAppuElAVbnaA57MBe5_HxgCYFwxWZ7Yg5sxdOrEH4gso6PdDo5uNbo-Khm2r5v4uV8Jd2wX8lXlUz03Vaia8Q159MA_KFftOGV82CviGDT7PvWZIoUUa2ovPjFJe47-1eF_5wDHUzmobR9O5Us2XvkAAkkKOmXPly3niJ3l7Yp" alt="Artisan Process" />
-                        <div className="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
-                    </div>
-                    <div className="order-1 md:order-2 space-y-8">
-                        <h3 className="font-headline text-4xl mb-8 font-light italic leading-tight">Artistry in the Infinite</h3>
-                        <p className="font-body text-on-surface-variant text-xl leading-relaxed italic opacity-85">
-                            Each piece in our Nova collection is handcrafted in our Paris SOVRA. The heart silhouette is achieved through a proprietary laser-engraving technique that creates microscopic facets on the gold surface, allowing it to shimmer even in the lowest light while maintaining its resilience.
-                        </p>
-                        <Link className="inline-block font-label text-[10px] tracking-widest uppercase border-b border-primary pb-3 text-primary hover:opacity-70 transition-all font-bold" to="/shop">
-                            Discover the SOVRA
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-            {/* Complete the Look: Suggested Items */}
-            <section className="mt-24 max-w-[1440px] mx-auto px-12 pb-24">
-                <div className="flex items-baseline justify-between mb-12 border-b border-outline-variant/10 pb-6">
-                    <h3 className="font-headline text-4xl font-light">Complete the Look</h3>
-                    <span className="font-label text-[10px] tracking-widest uppercase text-secondary font-bold italic">A Curated Pairing</span>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24">
-                    {/* Suggested Items logic from provided HTML */}
-                    {[
-                        { name: "Celestial Stud Earrings", price: "$1,100.00", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBe1TJaSxbCjPeBOwrYEK4VNhCj-0xVe78ZJaC6QgYI1qtnh7AF-fmFo-fXuETFNZ8pUM9n_qWsO3AfMtvCn5uHlMypBEi0GIlopHr49Lbm7R7-2ucWwE0tXurU45Z1x2xiTWYIOA4JaFRxrx5DXIgdEnPkvmGsduNUPoS-gzKudmNiD0SGQGWYcmUzYT949bg4vDSrdZUPTkL2eyYWliaU7pQR5wVb0DOIjGHdSEy1KClZcrKhBHZ__FJc0xszjO4TqTLJxp0L86VE" },
-                        { name: "Stardust Band Ring", price: "$850.00", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD2PCFYBtTuIi69pL8WQbuctD84I8LaNlcFxoEXpWmQRh1slwO3IpkmaNJAREf3yeb3OSGPe4rcvquZV56bt2PGTKN04J-I0HLkCYJ6b3e5r0s9zVDRutE3WDzzRslwwI0SiqNf4efbd8dX4J8TrKqgatCrfyDRRPEl6mkfgN8Bua0DUvVaWQu03dz5-2NHLc9bo4u3svAh0akVi3CY1ILvBoEcHrkCyrQqVXq79Y1GD4lPdo-GMFv9j3f1BakMrbeNmo_OyEdymeL6", offset: true },
-                        { name: "Cosmic Ray Bangle", price: "$3,200.00", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDP9sY5kV-iT2L0PsRLnDMUX_fNnJVPEPVKmBPfYFNCLKimMzo6yeR-GZj2py7XVplxHlFe9yidum3dNTDPb_cIBc0YCp78mAUFAEC84qC-vaw5ShD2kSjpMqI3StA5AFN7HzbsyMocDpgWh11Kk6CMgSn1NcNjgCRV5OdwW2NpoZPA2M30ZgVHNwmp3zM3qaTg-Qk9PMxX-zYrX5zfAdo7hiYwnpOViwwTXktlgHACKT-FjpiYLBA0slioAv-e7aeRcgfmNy30T3sZ" }
-                    ].map((item, idx) => (
-                        <div key={item.name} className={`group cursor-pointer ${item.offset ? 'md:translate-y-20' : ''}`}>
-                            <div className="aspect-[4/5] bg-surface-container-low mb-8 overflow-hidden relative shadow-sm hover:shadow-xl transition-all duration-700">
-                                <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={item.img} alt={item.name} />
-                                <Link to="/product/1" className="absolute inset-0 bg-surface-container-highest/20 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-center justify-center backdrop-blur-[1px]">
-                                    <span className="font-label text-[10px] tracking-widest uppercase bg-white py-4 px-8 editorial-shadow font-bold">Quick View</span>
-                                </Link>
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-4">
@@ -255,8 +208,6 @@ const ProductDetail = () => {
                                 </button>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
 

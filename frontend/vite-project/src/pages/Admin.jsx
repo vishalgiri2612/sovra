@@ -29,7 +29,6 @@ const Admin = () => {
     })
     const [uploading, setUploading] = useState(false)
 
-<<<<<<< HEAD
     // Real Data States
     const [stats, setStats] = useState({
         totalRevenue: '₹0',
@@ -42,14 +41,6 @@ const Admin = () => {
     const [customers, setCustomers] = useState([])
     const [bespokeRequests, setBespokeRequests] = useState([])
     const [revenueData, setRevenueData] = useState([])
-=======
-    const [orders] = useState([
-        { id: "#ORD-88291", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Ethereal Band", total: "$1,250", status: "Delivered", date: "Oct 14, 2023" },
-        { id: "#ORD-88104", customer: "Julianne Vora", email: "j.vora@luxury.com", items: "Celestial Drop Earrings", total: "$890", status: "Shipped", date: "Nov 02, 2023" },
-        { id: "#ORD-88542", customer: "Mark Sterling", email: "mark.s@finance.com", items: "L'Aube Pendant", total: "$4,200", status: "Pending", date: "Dec 12, 2023" },
-        { id: "#ORD-88901", customer: "Elena Rossi", email: "elena@SOVRA.it", items: "Solitude Ring", total: "$2,450", status: "Processing", date: "Jan 05, 2024" }
-    ])
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
 
     // Data Fetching Central
     useEffect(() => {
@@ -65,19 +56,11 @@ const Admin = () => {
                     api.get('/bespoke')
                 ])
 
-<<<<<<< HEAD
                 setStats(statsRes.data)
                 setProducts(productsRes.data)
                 setOrders(ordersRes.data)
                 setCustomers(usersRes.data)
                 setBespokeRequests(bespokeRes.data)
-=======
-    const [customers] = useState([
-        { id: 1, name: "Julianne Vora", email: "j.vora@luxury.com", orders: 12, spend: "$45,200", preference: "High Jewelry", status: "VIP" },
-        { id: 2, name: "Mark Sterling", email: "mark.s@finance.com", orders: 4, spend: "$12,800", preference: "Timepieces", status: "Regular" },
-        { id: 3, name: "Elena Rossi", email: "elena@SOVRA.it", orders: 1, spend: "$8,500", preference: "Bespoke", status: "New" }
-    ])
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
 
                 // Map revenue data for the chart
                 const fullYear = Array.from({ length: 12 }, (_, i) => ({ month: i + 1, revenue: 0 }))
@@ -284,11 +267,7 @@ const Admin = () => {
                             <div>
                                 <p className="font-label text-[10px] text-primary tracking-[0.3em] font-black uppercase mb-3">Req #{r._id.slice(-6)}</p>
                                 <h4 className="font-headline text-2xl italic group-hover:translate-x-2 transition-transform">{r.concept}</h4>
-<<<<<<< HEAD
                                 <p className="font-body text-[12px] opacity-60 font-black mt-2">SOVRA Client: {r.clientName || r.client?.name} • Target Deadline: {r.deadline}</p>
-=======
-                                <p className="font-body text-[12px] opacity-60 font-black mt-2">SOVRA Client: {r.client} • Target Deadline: {r.deadline}</p>
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
                             </div>
                             <div className="flex flex-wrap items-center gap-12 w-full lg:w-auto">
                                 <div className="text-right">

@@ -62,29 +62,7 @@ const Shop = () => {
         { id: 'earrings', name: 'Earrings', subtitle: 'Luminous Accents' }
     ]
 
-<<<<<<< HEAD
     const activeCategoryInfo = categories.find(c => c.id === activeFilter) || categories[0]
-=======
-    return (
-        <div className="pt-24 pb-16 bg-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container">
-            <main className="max-w-[1920px] mx-auto px-12">
-                {/* Editorial Header */}
-                <header className="mb-16 flex flex-col md:flex-row justify-between items-end gap-10">
-                    <div className="max-w-2xl">
-                        <h1 className="font-headline text-[clamp(2.5rem,6vw,4rem)] leading-[1.1] -tracking-[0.02em] text-on-surface mb-6 capitalize italic font-light">
-                            The {activeFilter === 'all' ? 'Entire' : activeFilter} Curations
-                        </h1>
-                        <p className="font-body text-lg text-secondary leading-[1.7] font-light">
-                            An exploration of form and light. Each piece in our celestial collection is handcrafted using ethically sourced 18k gold and high-clarity gemstones in our Tuscan SOVRA.
-                        </p>
-                    </div>
-                    {activeFilter !== 'all' && (
-                        <Link to="/shop" className="font-label text-[10px] uppercase tracking-[0.3em] text-on-surface border-b border-primary/40 pb-2 hover:border-primary transition-all duration-700 font-bold mb-2">
-                            View All Collections
-                        </Link>
-                    )}
-                </header>
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
 
     return (
         <div className="pt-24 bg-[#fffcf7] min-h-screen selection:bg-primary/10 overflow-hidden relative">
@@ -164,21 +142,9 @@ const Shop = () => {
                             ))}
                         </div>
 
-<<<<<<< HEAD
                         <div className="flex items-center gap-12">
                             <div className="hidden lg:flex items-center gap-6">
                                 <span className="font-sans text-[9px] tracking-[0.3em] uppercase text-[#7a7670] font-black">Showing {products.length} Masterworks</span>
-=======
-                        <div>
-                            <h3 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-8 font-bold">Collection</h3>
-                            <div className="space-y-5">
-                                {['Celestial Body', 'Ether Essence', 'Heritage SOVRA'].map(collection => (
-                                    <label key={collection} className="flex items-center group cursor-pointer">
-                                        <input className="w-4 h-4 rounded-none border-outline-variant text-primary focus:ring-0 bg-transparent" name="collection" type="radio"/>
-                                        <span className="ml-4 font-label text-xs uppercase tracking-widest text-secondary group-hover:text-primary transition-colors font-medium">{collection}</span>
-                                    </label>
-                                ))}
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
                             </div>
                             <div className="h-5 w-[1px] bg-[#111110]/10 hidden lg:block" />
                             <div className="flex items-center gap-8">

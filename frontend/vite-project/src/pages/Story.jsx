@@ -81,11 +81,7 @@ const Story = () => {
                         >
                             <div className="absolute -top-16 -left-16 w-64 h-64 bg-primary/5 -z-10 rounded-full blur-3xl"></div>
                             <img
-<<<<<<< HEAD
                                 alt="SOVRA London"
-=======
-                                alt="Parisian SOVRA"
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
                                 className="w-full aspect-[4/5] object-cover grayscale brightness-90 shadow-2xl transition-all duration-[3s] hover:grayscale-0"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUWQHZ982rZ6JgLQwdyd1woQhDp8OnmFrrktrGOVVhpAE_ePKgT_voBpiMTMKBM1Xgq4ApKuQr9lSUFaxQry6zGnPBd5h9KB28PK_wbx7ohuw6K566qHIgVt26NrjaKCgtSOyg2vIW7Hi89kCfAZ6C9CG_UEwZWlorJIHDKvVd7YplmNOdyyU7iSZo9DrOdbyWIVxLg_ps6gMuuAHkhOGjE-e8gxejdxPxAmRmnh9gto97inL_P_2pEzEZCzNBa3rKJuZmIbUx99xI"
                             />
@@ -109,13 +105,8 @@ const Story = () => {
 
                             <div className="space-y-10 border-l border-outline-variant/20 pl-12 relative">
                                 {[
-<<<<<<< HEAD
                                     { year: '1924', title: 'The Founding', desc: 'Lucien Sovra opens his first SOVRA, blending classical British techniques with experimental aesthetics.', active: true },
                                     { year: '1958', title: 'The Expansion', desc: 'Under Marcelle Sovra, the brand becomes a synonym for "Modern Baroque," captivating the elite of post-war London.', active: false },
-=======
-                                    { year: '1924', title: 'The Founding', desc: 'Lucien Sovra opens his first SOVRA, blending classical French techniques with experimental aesthetics.', active: true },
-                                    { year: '1958', title: 'The Expansion', desc: 'Under Marcelle Sovra, the brand becomes a synonym for "Modern Baroque," captivating the elite of post-war Europe.', active: false },
->>>>>>> 5203ea7c9517ac06d4a13393e6762ec8b1438799
                                     { year: '2024', title: 'The New Era', desc: 'Today, led by the third generation, we continue to push the boundaries of conscious luxury and digital artistry.', active: false }
                                 ].map((item, idx) => (
                                     <motion.div
